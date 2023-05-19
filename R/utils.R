@@ -43,11 +43,38 @@ filter_cities_by_country <- function(chosen_country){
     stop("Choose one country only.")
   }
 
-  #
   filtered_cities <- cities %>%
     filter(country == chosen_country) %>%
     select(city_english)
 
   return(filtered_cities$city_english)
 }
+
+# translate internal category name to what is displayed to the user
+variable_names <- data.frame(
+  variable = c("LGBTQI", "air", "clean", "culture", "edu", "greenery",
+               "health", "noise", "publicsp", "racial", "safety",
+               "satisfaction", "sport", "transp"),
+  display_name = c("LQBTQI+ friendliness", "Air quality", "Cleanness",
+                   "Cultural Events & Activities", "Quality of Education",
+                   "Green spaces", "Health System", "Noise Level",
+                   "Public spaces", "Quality of Life for ethnic minorities",
+                   "Safety", "Their City in General", "Sport facilities",
+                   "Public Transport")
+)
+
+# function to filter products by price category
+filter_products_by_category <- function(chosen_category){
+  # return error if more than several categories chosen
+  if(length(chosen_category) > 1){
+    stop("Choose one category only.")
+  }
+
+  filtered_products <- price_categories %>%
+    filter(category == chosen_category) %>%
+    select(item_name)
+
+  return(filtered_products$item_name)
+}
+
 

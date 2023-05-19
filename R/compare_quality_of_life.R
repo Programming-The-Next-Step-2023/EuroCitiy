@@ -6,6 +6,8 @@
 library(dplyr)
 library(ggplot2)
 
+source("./R/utils.R")
+
 # Function to filter quality of life rating of 2 chosen cities on one
 # chosen variable
 filter_QoL_comparison <- function(city1, city2, criterion){
@@ -21,7 +23,7 @@ filter_QoL_comparison <- function(city1, city2, criterion){
 # TODO: change title & subtitle
 plot_QoL_comparison <- function(comparison_df){
   plot_title <- paste("Percentage of inhabitants satisfied with ",
-                      comparison_df$variable[1])
+                      variable_names[variable_names$variable == comparison_df$variable[1],2])
 
   plot_subtitle <- paste("Comparing", comparison_df$city_english[1],
                          "and" ,  comparison_df$city_english[2])

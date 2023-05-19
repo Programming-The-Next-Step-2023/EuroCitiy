@@ -6,8 +6,6 @@ library(plotly)
 
 source("./R/utils.R")
 
-# Function to plot the trajectories of self-reported life satisfaction of
-# two chosen countries
 
 #' Plot the trajectories of self-reported life satisfaction of two chosen European
 #' countries between 2003 and 2021
@@ -49,29 +47,60 @@ plot_lifeSat <- function(country1, country2){
     filter(Entity == country1 | Entity == country2)
 
   # plot trajectories
-  plot_title <- paste("Self-reported life satisfaction in",
-                      country1, "and", country2, "(2003 - 2021)")
+  plot_title <- paste("Self-reported life satisfaction")
+
+  plot_subtitle <- paste("in", country1, "and", country2, "(2003 - 2021)")
 
   plot <- ggplot(sub_df, aes(x = Year, y = Life_satisfaction,
                              group = Entity)) +
     geom_line(aes(color = Entity)) +
     geom_point(aes(color = Entity)) +
     labs(title = plot_title,
+         subtitle = plot_subtitle,
          caption="source: World Happines Report (Helliwell et al., 2023)",
          y = "Self-reported life satisfaction") +
     ylim(0, 9) +
-    expand_limits(x = 2003, y = 0) +
-    scale_x_continuous(n.breaks = 16) +
+    xlim(2003, 2021) +
+    scale_x_continuous(n.breaks = 19) +
     scale_color_manual(values= c("#F6AA1C","#BA324F")) +
     theme_light() +
     theme(plot.title = element_text(size = 22),
-          axis.text.x = element_text(size = 15),
-          axis.text.y = element_text(size = 20))
+          axis.text.x = element_text(size = 10),
+          axis.text.y = element_text(size = 13))
 
   return(plot)
   }
 
 
-?plot_lifeSat
+# Function to plot an interactive mao of europe, illustrating life satisfaction
+lifeSat_map <- function(){
+  # get data from 2021
+  latest_data <- life_satisfaction %>%
+    filter(Year == 2021)
+
+  # plot map
+  fig <- plot_geo(latest_data)
+
+  fig <- fig %>% add_trace(
+    z = latest_data$Life_satisfaction,
+    text = latest_data$Entity,
+    locations = latest_data$Code,
+    color = latest_data$Life_satisfaction,
+    colors = 'Purples'
+  )
+
+  return(fig)
+}
+
+
+
+
+
+
+
+
+
+
+
 
 

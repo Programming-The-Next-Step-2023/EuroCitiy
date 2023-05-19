@@ -39,7 +39,7 @@ interest <- data.frame(
   names = c(rep(c("transp", "health", "sport", "culture", "greenery", "publicsp",
                   "edu", "air", "noise", "clean", "satisfaction", "safety"),
                 each = 2),
-            "LBTQI", "racial"),
+            "LGBTQI", "racial"),
   rows = c(29,30,41,42,53,54,65,66,69,79,82,90,101,102,113,114,125,126,137,138,
            149,150,351,252,243,237)
 )
@@ -113,12 +113,48 @@ qualityOL <- qualityOL %>%
 life_satisfaction <- read.csv("happiness-cantril-ladder.csv") %>%
   filter(grepl(paste(unique(cities$country), collapse="|"),
                Entity)) %>%
-  select(Entity, Year, Cantril.ladder.score)  %>%
+  select(Entity, Year, Cantril.ladder.score, Code)  %>%
   rename(Life_satisfaction = Cantril.ladder.score)
 
 
+# price_categories dataset --------------------------------------------------#
+
+price_categories <- data.frame(
+  category = c(rep("Housing", 7),
+               rep("Groceries", 7),
+               rep("Alcoholic Beverages", 2),
+               rep("Leisure time and going out", 4),
+               rep("Transportation", 3)),
+  item_name = c("Price per square meter to Buy Apartment Outside of City Center",
+              "Price per square meter to Buy Apartment in City Center",
+              "One bedroom apartment in city centre",
+              "Three bedroom apartment in city centre",
+              "One bedroom apartment outside of city centre",
+              "Three bedroom apartment outside of city centre",
+              "Basic utilities for 85 square meter Apartment including Electricity, Heating or Cooling, Water and Garbage",
+              "Banana, 1 kg",
+              "Lettuce, 1 head",
+              "White Rice, 1 kg",
+              "Potato, 1 kg",
+              "Loaf of Fresh White Bread, 0.5 kg",
+              "Eggs, 12 pack",
+              "Milk, Regular,1 liter",
+              "Imported Beer, 0.33 liter Bottle",
+              "Bottle of Wine, Mid-Range Price",
+              "Meal for 2 People, Mid-range Restaurant, Three-course",
+              "Fitness Club, Monthly Fee for 1 Adult",
+              "Cinema ticket, 1 Seat",
+              "Cappuccino",
+              "Gasoline, 1 liter",
+              "Taxi, price for 1 km, Normal Tariff",
+              "One-way Ticket, Local Transport"
+              )
+)
+
+
+
 # store all datasets as internal data -------------------------------------#
-usethis::use_data(life_satisfaction, qualityOL, cities,
+usethis::use_data(life_satisfaction, qualityOL, cities, price_categories,
                   internal = TRUE, overwrite = TRUE)
 
 
