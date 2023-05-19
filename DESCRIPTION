@@ -2,14 +2,16 @@ Package: EuroCity
 Type: Package
 Title: Comparison of European cities on several criteria of quality of life
 Version: 0.1.0
-Author: Madlen Hoffstadt
-Maintainer: The package maintainer <madlenfeehoffstadt@gmail.com>
+Authors@R: 
+    person("Madlen", "Hoffstadt", email = "madlenfeehoffstadt@gmail.com",
+    role = c("aut", "cre"))
 Description: Contains Rshiny app in which users can compare European cities on 
-    multiple criteria. Vidualizes those comparisons in interactive maps and
+    multiple criteria. Visualizes those comparisons in interactive maps and
     plots. Users can also find the city in Euope ranking highest on criteria 
     they are interested in. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
-Imports: 
+Depends: 
+    R (>= 2.10)
