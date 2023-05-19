@@ -2,8 +2,12 @@
 #
 # Defining user interface for the "shall I move?" shiny app
 #
-source("./R/utils.R")
 library(shiny)
+
+source("./R/utils.R")
+#source("./R/compare_quality_of_life.R")
+#source("./R/compare_life_satisfaction.R")
+
 
 # load internal datasets
 
@@ -13,7 +17,7 @@ ui <- shiny::fluidPage(
   # INTRODUCTION  -----------------------------
   shiny::titlePanel(title = "Shall I move?"),
 
-  fluidRow(
+  shiny::fluidRow(
     column(12,
            htmlOutput("short_intro"))
   ),
@@ -29,7 +33,7 @@ ui <- shiny::fluidPage(
                               choices = c("Select",sort(european_countries))),
 
            # choose city1 based on chosen first country
-           uiOutput("conditional_city1"),
+           shiny::uiOutput("conditional_city1"),
 
            shiny::hr(),
 
@@ -39,12 +43,12 @@ ui <- shiny::fluidPage(
                               choices = c("Select",sort(european_countries))),
 
            # choose city2 based on chosen second country
-           uiOutput("conditional_city2"),
+           shiny::uiOutput("conditional_city2"),
 
            shiny::hr(),
 
           # choose criteria for comparison
-          radioButtons(inputId  = "criterion",
+          shiny::radioButtons(inputId  = "criterion",
                        label    = "Which criterion matters most to you?",
                        choices  = c(
                          `Public transport` = "transp",
@@ -53,8 +57,8 @@ ui <- shiny::fluidPage(
                          `Cleanliness` = "clean",
                          `Diverse cultural offer` = "culture",
                          `Sport facilities` = "sport",
-                         `LGBTQI+ friendlyness` = "LGBTQI",
-                         `Acceptance of racial minorties` = "racial",
+                         `LGBTQI+ friendliness` = "LBTQI",
+                         `Quality of life racial minorties` = "racial",
                          `Education` = "edu",
                          `Quality of health system` = "health",
                          `Low noise level` = "noise",
@@ -65,15 +69,22 @@ ui <- shiny::fluidPage(
     ),
 
     column(8,
-           # test output: chosen country1
-           shiny::verbatimTextOutput("print_country1"),
-           # test output: chosen city1
-           shiny::verbatimTextOutput("print_city1"),
+           # plot output: line plot countries life satisfaction
+           shiny::plotOutput("lineplot1"),
+
+           # plot output: barchart cities quality of life
+           shiny::plotOutput("barchart1"),
+
 
            # test output: chosen country1
-           shiny::verbatimTextOutput("print_country2"),
+           #shiny::verbatimTextOutput("print_country1"),
            # test output: chosen city1
-           shiny::verbatimTextOutput("print_city2")
+           #shiny::verbatimTextOutput("print_city1"),
+
+           # test output: chosen country1
+           #shiny::verbatimTextOutput("print_country2"),
+           # test output: chosen city1
+           #shiny::verbatimTextOutput("print_city2")
     )
   ),
 )
@@ -81,7 +92,7 @@ ui <- shiny::fluidPage(
 # "server logic"; calculate output from user input
 server <- function(input, output){
   # print short introduction
-  output$short_intro <- renderUI({
+  output$short_intro <- shiny::renderUI({
     HTML(paste(
       "This shiny app will relief some of your stress caused by ruminating whether
       you should move to another city (and if: where?).
@@ -99,7 +110,6 @@ server <- function(input, output){
       shiny::selectInput(inputId = "city1",
                          label = "Choose the first city you want to compare",
                          choices = filter_cities_by_country(input$country1)))
-
   })
 
   # conditional panel to choose 2st city based on country 2
@@ -111,12 +121,28 @@ server <- function(input, output){
                          choices = filter_cities_by_country(input$country2)))
   })
 
-  # test
-  output$print_country1 <- shiny::renderPrint(input$country1)
-  output$print_city1 <- shiny::renderPrint(input$city1)
+  # plot line plot countries
+  output$lineplot1 <- shiny::renderPlot({
+    plot_lifeSat(input$country1, input$country2)
+  })
 
-  output$print_country2 <- shiny::renderPrint(input$country2)
-  output$print_city2 <- shiny::renderPrint(input$city2)
+  # plot bar chart cities
+  output$barchart1 <- shiny::renderPlot({
+    # filter data by chosen cities and criterion
+    compared_df <- filter_QoL_comparison(input$city1,
+                                         input$city2,
+                                         input$criterion)
+    # plot comparison
+    plot_QoL_comparison(compared_df)
+  })
+
+
+  # test
+  #output$print_country1 <- shiny::renderPrint(input$country1)
+  #output$print_city1 <- shiny::renderPrint(input$city1)
+
+  #output$print_country2 <- shiny::renderPrint(input$country2)
+  #output$print_city2 <- shiny::renderPrint(input$city2)
 }
 
 # "connect" ui with server logic and create app

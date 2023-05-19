@@ -78,7 +78,7 @@ cities <- data.frame(
               "Montenegro", "Czechia", "France", "Iceland", "Latvia", "Italy",
               "Germany", "Netherlands", "North Macedonia", "Bulgaria", "Sweden",
               "France", "Estonia", "Albania", "Italy", "England", "Malta", "Italy",
-              "Lithuania", "Poland", "Vienna", "Croatia", "Switzerland", "Luxembourg"),
+              "Lithuania", "Poland", "Austria", "Croatia", "Switzerland", "Luxembourg"),
   city = unique(qualityOL$city),
   city_english = unique(qualityOL$city)
 )

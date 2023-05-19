@@ -10,7 +10,7 @@ european_countries <- c("Denmark","Netherlands","Turkey","Belgium","Greece",
                         "Scotland","Austria","Finland","Cyprus",
                         "Slovenia","England","Sweden","Norway","Czechia",
                         "Montenegro","Iceland","Latvia","North Macedonia",
-                        "Estonia","Albania","Malta","Lithuania","Vienna",
+                        "Estonia","Albania","Malta","Lithuania",
                         "Croatia","Luxembourg")
 
 # Define European cities included
@@ -34,7 +34,7 @@ european_cities <- c("Aalborg","Amsterdam","Ankara","Antalya","Antwerpen",
                      "Sofia","Stockholm","Strasbourg","Tallinn",
                      "Tirana","Turin","Tyneside conurbation","Valletta",
                      "Verona","Vilnius","Warsaw","Vienna",
-                     "Zagreb","Zurich","luxemb")
+                     "Zagreb","Zurich","luxembourg")
 
 # function to filter cities within one country
 filter_cities_by_country <- function(chosen_country){

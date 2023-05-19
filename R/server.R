@@ -3,10 +3,10 @@
 # Defining server for the "shall I move?" shiny app
 #
 
-source("./R/living_expenses.R")
+#source("./R/compare_quality_of_life.R")
 
 #'@export
-server <- function(){
+#server <- function(){
 
   # FOR INTRO: ----------------------
   # html output intro
@@ -39,4 +39,4 @@ server <- function(){
 
   # plot: ranking of cities on chosen criterion
 
-}
+#}
