@@ -29,7 +29,7 @@
 library(dplyr)
 library(tidyverse)
 
-qualityOL <- readxl::read_excel("quality_of_life_european_cities_2019_aggregated_data.xlsx",
+qualityOL <- readxl::read_excel("C:/Users/Michael/Documents/Psychologie/Master/01_Stats_Courses/Programming_the_next_step/quality_of_life_european_cities_2019_aggregated_data.xlsx",
                                 sheet = "QoL in European cities 2019",
                                 col_names = TRUE,
                                 range = "A2:CI551")
@@ -59,6 +59,7 @@ qualityOL <- qualityOL %>%
 # combine percentage of "rather satisfied" and "very satisfied"
 # for each city and category
 qualityOL <- qualityOL %>%
+  filter(percentage < 700) %>% # exclude missing data
   group_by(variable, city) %>%
   summarise(across(percentage, sum))
 
@@ -110,7 +111,7 @@ qualityOL <- qualityOL %>%
 # life_satisfaction DATASET --------------------------------------------------#
 
 # load data and filter European countries only
-life_satisfaction <- read.csv("happiness-cantril-ladder.csv") %>%
+life_satisfaction <- read.csv("C:/Users/Michael/Documents/Psychologie/Master/01_Stats_Courses/Programming_the_next_step/happiness-cantril-ladder.csv") %>%
   filter(grepl(paste(unique(cities$country), collapse="|"),
                Entity)) %>%
   select(Entity, Year, Cantril.ladder.score, Code)  %>%
