@@ -2,123 +2,191 @@
 #
 # Defining user interface for the "shall I move?" shiny app
 #
-source("./R/utils.R")
-library(shiny)
 
-# load internal datasets
+#'@import shinythemes
+#'@import shinyWidgets
 
 
-# create user interface
-ui <- shiny::fluidPage(
-  # INTRODUCTION  -----------------------------
-  shiny::titlePanel(title = "Shall I move?"),
 
-  fluidRow(
-    column(12,
-           htmlOutput("short_intro"))
-  ),
+ui <- shiny::fluidPage(theme = shinythemes::shinytheme("lumen"),
+                shiny::fluidRow(
+                shiny::column(shiny::h1("Shall I move? - Comparing European Cities",
+                           style= "color:white"),
+                       style = "text-align:justify;color:black;background-color:
+                            #987D7C;padding:15px;border-radius:10px",
+                       width = 12
+                       ),
 
-  shiny::hr(),
+                # this is for styling of the UK warning (see below)
+                shiny::tags$head(shiny::tags$style("#warning_UK{color: red;
+                                font-size: 12px;
+                                }"
+                )),
+                shiny::tags$head(shiny::tags$style("#warning_UK2{color: red;
+                                 font-size: 12px;
+                                 }"
+                )),
 
-  # USER INPUT FIRST CITY -------------------
-  shiny::fluidRow(
-    column(4,
-           # choose country of first city
-           shiny::selectInput(inputId = "country1",
-                              label = "Choose country of first city",
-                              choices = c("Select",sort(european_countries))),
 
-           # choose city1 based on chosen first country
-           uiOutput("conditional_city1"),
+                # Introduction -----------------------------------
 
-           shiny::hr(),
+                  shiny::br(),
 
-           # choose country of second city
-           shiny::selectInput(inputId = "country2",
-                              label = "Choose country of second city",
-                              choices = c("Select",sort(european_countries))),
+                  shiny::column(shiny::h4("What is this about?",
+                            style="color:black"),
+                            shiny::p("This shiny app will relief some of your stress caused by ruminating whether
+                           you should move to another city (and perhaps more importantly: where to?)."),
+                            shiny::p("Just choose two cities you would like to compare and those criteria that matter most to you."),
+                            shiny::p(" The app will show you how these cities compare to each other in nice graphs and plots"),
+                         style="text-align:justify;color:black;background-color:
+                            #FCEFF9;padding:15px;border-radius:10px",
+                         width = 12),
+                ),
 
-           # choose city2 based on chosen second country
-           uiOutput("conditional_city2"),
+                # TABS
+                shiny::tabsetPanel(
+                  type = "pills",
 
-           shiny::hr(),
+                  # Life satisfaction tab -----------------------
+                  shiny::tabPanel(
+                    title = "Life Satisfaction",
+                    icon = shiny::icon("smile"),
 
-          # choose criteria for comparison
-          radioButtons(inputId  = "criterion",
-                       label    = "Which criterion matters most to you?",
-                       choices  = c(
-                         `Public transport` = "transp",
-                         `Nice green spaces` = "greenery",
-                         `Air quality` = "air",
-                         `Cleanliness` = "clean",
-                         `Diverse cultural offer` = "culture",
-                         `Sport facilities` = "sport",
-                         `LGBTQI+ friendlyness` = "LGBTQI",
-                         `Acceptance of racial minorties` = "racial",
-                         `Education` = "edu",
-                         `Quality of health system` = "health",
-                         `Low noise level` = "noise",
-                         `Safety` = "safety",
-                         `General satisfaction of inhabitants` = "satisfaction"),
-                       selected = "transp"),
 
-    ),
+                    shiny::sidebarLayout(
+                      # Life satisfaction side panel ---
+                      shiny::sidebarPanel(
+                        style = "text-align:justify;color:black;background-color:
+                             #9AC6C5;padding:15px;border-radius:10px",
 
-    column(8,
-           # test output: chosen country1
-           shiny::verbatimTextOutput("print_country1"),
-           # test output: chosen city1
-           shiny::verbatimTextOutput("print_city1"),
+                        # choose country of first city
+                        shiny::selectInput(inputId = "country1",
+                                           label = "Choose country of first city",
+                                           choices = c("Select",sort(unique(cities$country))),
+                                           selected = "Select"),
 
-           # test output: chosen country1
-           shiny::verbatimTextOutput("print_country2"),
-           # test output: chosen city1
-           shiny::verbatimTextOutput("print_city2")
-    )
-  ),
-)
+                        # choose city1 based on chosen first country
+                        shiny::uiOutput("conditional_city1"),
 
-# "server logic"; calculate output from user input
-server <- function(input, output){
-  # print short introduction
-  output$short_intro <- renderUI({
-    HTML(paste(
-      "This shiny app will relief some of your stress caused by ruminating whether
-      you should move to another city (and if: where?).
-      Just choose two cities you would like to compare and those criteria that
-      matter most to you.
-      The app will show you how these cities compare to each other in nice
-      graphs and plots.",
-      " ", " ", sep="<br/>"))
-  })
+                        # if country1 is in UK, inform user that no life satifsfaction data available
+                        shiny::conditionalPanel(
+                          condition = "input.country1 == 'England' | input.country1 == 'Scotland' |
+                          input.country1 == 'Northern Ireland' | input.country1 == 'Wales'",
+                          shiny::htmlOutput("warning_UK")
+                        ),
 
-  # conditional panel to choose 1st city based on country 1
-  output$conditional_city1 <- shiny::renderUI({
-    shiny::conditionalPanel(
-      condition = "input.country1 != 'Select'",
-      shiny::selectInput(inputId = "city1",
-                         label = "Choose the first city you want to compare",
-                         choices = filter_cities_by_country(input$country1)))
+                        shiny::hr(),
 
-  })
+                        # choose country of second city
+                        shiny::selectInput(inputId = "country2",
+                                           label = "Choose country of second city",
+                                           choices = c("Select",sort(unique(cities$country))),
+                                           selected = "Select"),
 
-  # conditional panel to choose 2st city based on country 2
-  output$conditional_city2 <- shiny::renderUI({
-    shiny::conditionalPanel(
-      condition = "input.country2 != 'Select'",
-      shiny::selectInput(inputId = "city2",
-                         label = "Choose the second city to compare",
-                         choices = filter_cities_by_country(input$country2)))
-  })
+                        # choose city2 based on chosen second country
+                        shiny::uiOutput("conditional_city2"),
 
-  # test
-  output$print_country1 <- shiny::renderPrint(input$country1)
-  output$print_city1 <- shiny::renderPrint(input$city1)
+                        # if country2 is in UK, inform user that no life satifsfaction data available
+                        shiny::conditionalPanel(
+                          condition = "input.country2 == 'England' | input.country2 == 'Scotland' |
+                          input.country2 == 'Northern Ireland' | input.country2 == 'Wales'",
+                          shiny::htmlOutput("warning_UK2")
+                        ),
 
-  output$print_country2 <- shiny::renderPrint(input$country2)
-  output$print_city2 <- shiny::renderPrint(input$city2)
-}
+                        shiny::hr(),
 
-# "connect" ui with server logic and create app
-shiny::shinyApp(ui = ui, server = server)
+                        # choose quality of life criteria
+                        shiny::radioButtons(inputId  = "criterion",
+                                            label    = "Which criterion matters most to you?",
+                                            choices  = c(
+                                              `Public transport` = "transp",
+                                              `Nice green spaces` = "greenery",
+                                              `Air quality` = "air",
+                                              `Cleanlness` = "clean",
+                                              `Diverse cultural offer` = "culture",
+                                              `Sport facilities` = "sport",
+                                              `LGBTQI+ friendliness` = "LGBTQI",
+                                              `Quality of life for ethnic minorties` = "racial",
+                                              `Education` = "edu",
+                                              `Quality of health system` = "health",
+                                              `Low noise level` = "noise",
+                                              `Safety` = "safety",
+                                              `General satisfaction of inhabitants` = "satisfaction"),
+                                            selected = "transp"),
+                      ),  # end sidepanel
+
+                      # Life satisfaction main panel ---
+                      shiny::mainPanel(
+                        shiny::fluidRow(
+                          shiny::column(6,
+                                 # plot output: line plot countries life satisfaction
+                                 shiny::plotOutput("lineplot1")),
+                          shiny::column(6,
+                                 # plotly map output
+                                 plotly::plotlyOutput(outputId = "map")
+                          )
+                        ),
+
+                        shiny::fluidRow(
+                          # plot output: barchart cities quality of life
+                          shiny::plotOutput("barchart1")
+                        )
+                      )
+                    ), # end sidebar settings
+                  ), # end tab
+
+                  # Living expenses tab -------------------------
+                  shiny::tabPanel(
+                    title = "Living Expenses",
+                    icon = shiny::icon("euro"),
+
+                    shiny::sidebarLayout(
+                      # Living expenses side panel ---
+                      shiny::sidebarPanel(
+                        style = "text-align:justify;color:black;background-color:
+                             #9AC6C5;padding:15px;border-radius:10px",
+
+                        # repeat choice of country and city (different selection than above)
+                        # choose country of first city
+                        shiny::selectInput(inputId = "country1_prices",
+                                           label = "Choose country of first city",
+                                           choices = c("Select", sort(unique(city_prices$country))),
+                                           selected = "Select"),
+
+                        # choose city1 based on chosen first country
+                        shiny::uiOutput("conditional_city1_prices"),
+
+                        shiny::hr(),
+
+                        # choose country of second city
+                        shiny::selectInput(inputId = "country2_prices",
+                                           label = "Choose country of second city",
+                                           choices = c("Select", sort(unique(city_prices$country))),
+                                           selected = "Select"),
+
+                        # choose city2 based on chosen second country
+                        shiny::uiOutput("conditional_city2_prices"),
+
+                        shiny::hr(),
+
+                        # choose price category
+                        shiny::selectInput(inputId = "price_category",
+                                           label = "Choose price category",
+                                           choices = c("Select", unique(price_categories$category)),
+                                           selected = "Select"
+                        ),
+
+                        # choose product based on chosen price category
+                        shiny::uiOutput("conditional_product"),
+                      ), # end of sidebar
+
+                      # Living expenses main panel ---
+                      shiny::mainPanel(
+                        # plot output: barchart cities quality of life
+                        shiny::plotOutput("barchart_prices")
+                      ) # end main panel
+                    ) # end sidebarpanel
+                  ) # end sidebarlayout
+                ) # end tab
+                ) # end tabsetPanel
 

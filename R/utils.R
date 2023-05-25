@@ -1,8 +1,6 @@
 # HELPER FUNCTIONS
 
-library(dplyr)
-
-# Define European countries to be included in the data
+# Define European countries to be included in the data ------------
 european_countries <- c("Denmark","Netherlands","Turkey","Belgium","Greece",
                         "Spain","Northern Ireland","Serbia","Germany","Poland",
                         "Italy","France","Portugal","Slovakia","Romania",
@@ -10,10 +8,10 @@ european_countries <- c("Denmark","Netherlands","Turkey","Belgium","Greece",
                         "Scotland","Austria","Finland","Cyprus",
                         "Slovenia","England","Sweden","Norway","Czechia",
                         "Montenegro","Iceland","Latvia","North Macedonia",
-                        "Estonia","Albania","Malta","Lithuania","Vienna",
+                        "Estonia","Albania","Malta","Lithuania",
                         "Croatia","Luxembourg")
 
-# Define European cities included
+# Define European cities included ---------------
 european_cities <- c("Aalborg","Amsterdam","Ankara","Antalya","Antwerpen",
                      "Athens","Barcelona","Belfast",
                      "Belgrade","Berlin","Białystok","Bologna",
@@ -34,20 +32,59 @@ european_cities <- c("Aalborg","Amsterdam","Ankara","Antalya","Antwerpen",
                      "Sofia","Stockholm","Strasbourg","Tallinn",
                      "Tirana","Turin","Tyneside conurbation","Valletta",
                      "Verona","Vilnius","Warsaw","Vienna",
-                     "Zagreb","Zurich","luxemb")
+                     "Zagreb","Zurich","luxembourg")
 
-# function to filter cities within one country
-filter_cities_by_country <- function(chosen_country){
+
+# function to filter cities within one country ---------------------
+filter_cities_by_country <- function(chosen_country, version = "QoL"){
   # return error if more than several countries chosen
   if(length(chosen_country) > 1){
     stop("Choose one country only.")
   }
 
-  #
-  filtered_cities <- cities %>%
-    filter(country == chosen_country) %>%
-    select(city_english)
+  # if version = QoL: filter cities df by country and return city_english column
+  if(version == "QoL"){
+    filtered_cities <- cities %>%
+      dplyr::filter(country == chosen_country) %>%
+      dplyr::select(city_english)
 
-  return(filtered_cities$city_english)
+    return(filtered_cities$city_english)
+
+    # if version = "prices": filter city_prices df by country and return city column
+  } else if(version == "prices"){
+    filtered_cities <- city_prices %>%
+      dplyr::filter(country == chosen_country) %>%
+      dplyr::select(city)
+
+    return(unique(filtered_cities$city))
+  }
 }
+
+# translate internal category name to what is displayed to the user -------
+variable_names <- data.frame(
+  variable = c("LGBTQI", "air", "clean", "culture", "edu", "greenery",
+               "health", "noise", "publicsp", "racial", "safety",
+               "satisfaction", "sport", "transp"),
+  display_name = c("LQBTQI+ friendliness", "Air quality", "Cleanness",
+                   "Cultural Events & Activities", "Quality of Education",
+                   "Green spaces", "Health System", "Noise Level",
+                   "Public spaces", "Quality of Life for ethnic minorities",
+                   "Safety", "Their City in General", "Sport facilities",
+                   "Public Transport")
+)
+
+# function to filter products by price category ------------------
+filter_products_by_category <- function(chosen_category){
+  # return error if more than several categories chosen
+  if(length(chosen_category) > 1){
+    stop("Choose one category only.")
+  }
+
+  filtered_products <- price_categories %>%
+    dplyr::filter(category == chosen_category) %>%
+    dplyr::select(item_name)
+
+  return(filtered_products$item_name)
+}
+
 

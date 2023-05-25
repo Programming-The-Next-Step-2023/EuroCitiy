@@ -4,12 +4,11 @@
 #
 # 1: qualityOL dataset --------------------------------------------------
 # raw data is from the latest Report on the Quality of life in European Cities:
-# TODO: add citation
 #
 # Download raw data here:
 # https://ec.europa.eu/regional_policy/information-sources/maps/quality-of-life_en
 #
-# 2: cities datafset -------------------------------------------------------
+# 2: cities dataset -------------------------------------------------------
 # overview of cities included in the shiny application
 # columns are country, original city name as included in study data,
 # and city name in english
@@ -22,7 +21,19 @@
 # Download raw data here:
 # https://ourworldindata.org/grapher/happiness-cantril-ladder
 #
+# 4: `city_prices`--------------------------------------------------------
+# contains prices of various goods (in €) for a wide range of European cities
+# Data was retrieved in May 2023 from the Cost of Living & Prices API:
+# https://cost-of-living-and-prices.p.rapidapi.com/prices
+#
+#
+# 5: `price_categories`---------------------------------------------------
+# encodes which products belong to which category. Product names are taken
+# from the Cost of Living & Prices API:
+# https://cost-of-living-and-prices.p.rapidapi.com/prices
+#
 #########
+
 
 # qualityOL dataset ----------------------------------------------------------#
 
@@ -39,7 +50,7 @@ interest <- data.frame(
   names = c(rep(c("transp", "health", "sport", "culture", "greenery", "publicsp",
                   "edu", "air", "noise", "clean", "satisfaction", "safety"),
                 each = 2),
-            "LBTQI", "racial"),
+            "LGBTQI", "racial"),
   rows = c(29,30,41,42,53,54,65,66,69,79,82,90,101,102,113,114,125,126,137,138,
            149,150,351,252,243,237)
 )
@@ -59,6 +70,7 @@ qualityOL <- qualityOL %>%
 # combine percentage of "rather satisfied" and "very satisfied"
 # for each city and category
 qualityOL <- qualityOL %>%
+  filter(percentage < 700) %>% # exclude missing data
   group_by(variable, city) %>%
   summarise(across(percentage, sum))
 
@@ -78,13 +90,14 @@ cities <- data.frame(
               "Montenegro", "Czechia", "France", "Iceland", "Latvia", "Italy",
               "Germany", "Netherlands", "North Macedonia", "Bulgaria", "Sweden",
               "France", "Estonia", "Albania", "Italy", "England", "Malta", "Italy",
-              "Lithuania", "Poland", "Vienna", "Croatia", "Switzerland", "Luxembourg"),
+              "Lithuania", "Poland", "Austria", "Croatia", "Switzerland", "Luxembourg"),
   city = unique(qualityOL$city),
   city_english = unique(qualityOL$city)
 )
 
 cities$city_english[6] <- "Athens"
 cities$city_english[9] <- "Belgrade"
+cities$city_english[5] <- "Antwerp"
 cities$city_english[11] <- "Białystok"
 cities$city_english[16] <- "Brussels"
 cities$city_english[26] <- "Gdańsk"
@@ -105,7 +118,8 @@ cities$city_english[80]<- "Vienna"
 qualityOL <- qualityOL %>%
   left_join(cities, by = join_by(city))
 qualityOL <- qualityOL %>%
-  select(country, city_english, variable, percentage)
+  select(country, city_english, variable, percentage) %>%
+  rename(city = city_english)
 
 # life_satisfaction DATASET --------------------------------------------------#
 
@@ -113,12 +127,54 @@ qualityOL <- qualityOL %>%
 life_satisfaction <- read.csv("happiness-cantril-ladder.csv") %>%
   filter(grepl(paste(unique(cities$country), collapse="|"),
                Entity)) %>%
-  select(Entity, Year, Cantril.ladder.score)  %>%
+  select(Entity, Year, Cantril.ladder.score, Code)  %>%
   rename(Life_satisfaction = Cantril.ladder.score)
 
 
+
+# city_prices dataset -------------------------------------------------------#
+city_prices <-  read.csv("city_prices.csv") %>%
+  select(-1)
+
+
+# price_categories dataset --------------------------------------------------#
+
+price_categories <- data.frame(
+  category = c(rep("Housing", 7),
+               rep("Groceries", 7),
+               rep("Alcoholic Beverages", 2),
+               rep("Leisure time and going out", 4),
+               rep("Transportation", 3)),
+  item_name = c("Price per square meter to Buy Apartment Outside of City Center",
+              "Price per square meter to Buy Apartment in City Center",
+              "One bedroom apartment in city centre",
+              "Three bedroom apartment in city centre",
+              "One bedroom apartment outside of city centre",
+              "Three bedroom apartment outside of city centre",
+              "Basic utilities for 85 square meter Apartment including Electricity, Heating or Cooling, Water and Garbage",
+              "Banana, 1 kg",
+              "Lettuce, 1 head",
+              "White Rice, 1 kg",
+              "Potato, 1 kg",
+              "Loaf of Fresh White Bread, 0.5 kg",
+              "Eggs, 12 pack",
+              "Milk, Regular,1 liter",
+              "Imported Beer, 0.33 liter Bottle",
+              "Bottle of Wine, Mid-Range Price",
+              "Meal for 2 People, Mid-range Restaurant, Three-course",
+              "Fitness Club, Monthly Fee for 1 Adult",
+              "Cinema ticket, 1 Seat",
+              "Cappuccino",
+              "Gasoline, 1 liter",
+              "Taxi, price for 1 km, Normal Tariff",
+              "One-way Ticket, Local Transport"
+              )
+)
+
+
+
 # store all datasets as internal data -------------------------------------#
-usethis::use_data(life_satisfaction, qualityOL, cities,
-                  internal = TRUE, overwrite = TRUE)
+usethis::use_data(life_satisfaction, qualityOL, cities, city_prices, price_categories,
+                  internal = FALSE, overwrite = TRUE)
 
 
