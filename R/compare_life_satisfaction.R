@@ -1,37 +1,11 @@
 # SCRIPT TO COMPARE LIFE SATISFACTION ON COUNTRY LEVEL
 
-library(dplyr)
-library(ggplot2)
-library(plotly)
-
-source("./R/utils.R")
+#' @import dplyr plotly
+#' @import ggplot2
 
 
-#' Plot the trajectories of self-reported life satisfaction of two chosen European
-#' countries between 2003 and 2021
-#'
-#' @description
-#' Data is taken form the World Happiness Report (Helliwell et al., 2003)
-#'
-#' @param country1 First country to be plotted.
-#'
-#'    Valid country names are:
-#'
-#'    Albania, Austria, Belgium, Bulgaria, Croatia, Cyprus, Czechia,
-#'    Denmark, England, Estonia, Finland, France, Germany, Greece,
-#'    Hungary, Iceland, Ireland, Italy, Latvia, Lithuania, Luxembourg,
-#'    Malta, Montenegro, Netherlands, North Macedonia, Northern Ireland,
-#'    Norway, Poland, Portugal, Romania, Scotland, Serbia, Slovakia,
-#'    Slovenia, Spain, Sweden, Switzerland, Turkey, Wales
-#'
-#' @param country2 Second country to be plotted
-#'
-#' @returns A line plot
-#'
-#' @examples
-#' plot_lifeSat("Netherlands", "Turkey")
-#'
-#'@export
+# Function to plot the trajectory of self-reported life satisfaction in two
+# chosen cities between 2003 and 2021
 plot_lifeSat <- function(country1, country2){
   # first, check if values entered for country1 and country2 are valid
   if(!(country1 %in% european_countries) & country1 != "Select"){
@@ -42,52 +16,65 @@ plot_lifeSat <- function(country1, country2){
     "is not a valid input. Check documentation to see which countries can be selected for comparison."))
   }
 
-  # first, filter life satisfaction data by chosen countries
-  sub_df <- life_satisfaction %>%
-    filter(Entity == country1 | Entity == country2)
+  # Inform user to choose two countries
+  if(country1 == "Select" | country2 == "Select") {
+    stop("Please choose two countries for comparison.")
 
-  # plot trajectories
-  plot_title <- paste("Self-reported life satisfaction")
+    # Give error when both countries are identical
+  } else if(country1 == country2){
+    stop("Please choose two non-identical countries for comparison.")
 
-  plot_subtitle <- paste("in", country1, "and", country2, "(2003 - 2021)")
+  } else {
+    # filter life_satisfaction by chosen countries and plot trajectory
+    sub_df <- life_satisfaction %>%
+      dplyr::filter(Entity == country1 | Entity == country2)
 
-  plot <- ggplot(sub_df, aes(x = Year, y = Life_satisfaction,
-                             group = Entity)) +
-    geom_line(aes(color = Entity)) +
-    geom_point(aes(color = Entity)) +
-    labs(title = plot_title,
-         subtitle = plot_subtitle,
-         caption="source: World Happines Report (Helliwell et al., 2023)",
-         y = "Self-reported life satisfaction") +
-    ylim(0, 9) +
-    xlim(2003, 2021) +
-    scale_x_continuous(n.breaks = 19) +
-    scale_color_manual(values= c("#F6AA1C","#BA324F")) +
-    theme_light() +
-    theme(plot.title = element_text(size = 22),
-          axis.text.x = element_text(size = 10),
-          axis.text.y = element_text(size = 13))
+    # and plot trajectories
+    plot_title <- paste("Self-reported life satisfaction")
 
-  return(plot)
-  }
+    plot_subtitle <- paste("in", country1, "and", country2, "(2003 - 2021)")
+
+    plot <- ggplot2::ggplot(sub_df, ggplot2::aes(x = Year, y = Life_satisfaction,
+                                                 group = Entity)) +
+      ggplot2::geom_line(ggplot2::aes(color = Entity)) +
+      ggplot2::geom_point(ggplot2::aes(color = Entity)) +
+      ggplot2::labs(title = plot_title,
+                    subtitle = plot_subtitle,
+                    caption="source: World Happines Report (Helliwell et al., 2023)",
+                    y = "Self-reported life satisfaction") +
+      ggplot2::ylim(0, 9) +
+      ggplot2::xlim(2003, 2021) +
+      ggplot2::scale_x_continuous(n.breaks = 19) +
+      ggplot2::scale_color_manual(values= c("#F6AA1C","#BA324F")) +
+      ggplot2::theme_light() +
+      ggplot2::theme(plot.title = ggplot2::element_text(size = 22),
+                     axis.text.x = ggplot2::element_text(size = 10),
+                     axis.text.y = ggplot2::element_text(size = 13))
+
+    return(plot)
+    }
+}
 
 
-# Function to plot an interactive mao of europe, illustrating life satisfaction
+# Function to plot an interactive map of Europe, illustrating life satisfaction
 lifeSat_map <- function(){
   # get data from 2021
   latest_data <- life_satisfaction %>%
-    filter(Year == 2021)
+    dplyr::filter(Year == 2021)
 
   # plot map
-  fig <- plot_geo(latest_data)
+  fig <- plotly::plot_geo(latest_data)
 
-  fig <- fig %>% add_trace(
+  fig <- fig %>% plotly::add_trace(
     z = latest_data$Life_satisfaction,
     text = latest_data$Entity,
     locations = latest_data$Code,
     color = latest_data$Life_satisfaction,
-    colors = 'Purples'
-  )
+    colors = 'Purples')
+
+  fig <- fig %>% plotly::layout(
+    title = "Life Satisfaction per country in Europe 2021"
+    )
 
   return(fig)
 }

@@ -3,11 +3,8 @@
 # Defining server for the "shall I move?" shiny app
 #
 
-source("./R/utils.R")
-source("./R/compare_quality_of_life.R")
-source("./R/compare_life_satisfaction.R")
-source("./R/compare_living_expenses.R")
-source("./R/ui.R")
+#'@import shiny
+
 
 server <- function(input, output){
 
@@ -18,7 +15,8 @@ server <- function(input, output){
       condition = "input.country1 != 'Select'",
       shiny::selectInput(inputId = "city1",
                          label = "Choose the first city you want to compare",
-                         choices = filter_cities_by_country(input$country1)))
+                         choices = filter_cities_by_country(input$country1,
+                                                            version= "QoL")))
   })
 
   # conditional panel to choose 2st city based on country 2
@@ -27,7 +25,23 @@ server <- function(input, output){
       condition = "input.country2 != 'Select'",
       shiny::selectInput(inputId = "city2",
                          label = "Choose the second city to compare",
-                         choices = filter_cities_by_country(input$country2)))
+                         choices = filter_cities_by_country(input$country2,
+                                                            version = "QoL")))
+  })
+
+  # render UK warning
+  output$warning_UK <- shiny::renderUI({
+    HTML(paste(
+      "Unfortunately, there is no data available on country-level life satisfaction
+      in the UK. However, you can still get information on the quality of life in",
+      input$city1, "below.", sep=" "))
+  })
+
+  output$warning_UK2 <- shiny::renderUI({
+    HTML(paste(
+      "Unfortunately, there is no data available on country-level life satisfaction
+      in the UK. However, you can still get information on the quality of life in ",
+      input$city2, "below. ", sep=" "))
   })
 
   # line plot for countries
@@ -56,7 +70,8 @@ server <- function(input, output){
       condition = "input.country1_prices != 'Select'",
       shiny::selectInput(inputId = "city1_prices",
                          label = "Choose the first city you want to compare",
-                         choices = filter_cities_by_country(input$country1_prices)))
+                         choices = filter_cities_by_country(input$country1_prices,
+                                                            version = "prices")))
   })
 
   # conditional panel to choose 2st city based on country 2
@@ -65,7 +80,8 @@ server <- function(input, output){
       condition = "input.country2_prices != 'Select'",
       shiny::selectInput(inputId = "city2_prices",
                          label = "Choose the second city to compare",
-                         choices = filter_cities_by_country(input$country2_prices)))
+                         choices = filter_cities_by_country(input$country2_prices,
+                                                            version = "prices")))
   })
 
   # conditional panel to choose product based on price category
@@ -78,13 +94,11 @@ server <- function(input, output){
   # bar chart of prices for cities
   output$barchart_prices <- shiny::renderPlot({
     # filter data by chosen cities
-    prices_for_cities <- filter_prices(city_prices,
-                                       input$city1_prices,
+    prices_for_cities <- filter_prices(input$city1_prices,
                                        input$city2_prices)
 
     plot_prices(prices_for_cities, input$product)
   })
 }
 
-# "connect" ui with server logic and create app
-shiny::shinyApp(ui = ui, server = server)
+

@@ -4,12 +4,11 @@
 #
 # 1: qualityOL dataset --------------------------------------------------
 # raw data is from the latest Report on the Quality of life in European Cities:
-# TODO: add citation
 #
 # Download raw data here:
 # https://ec.europa.eu/regional_policy/information-sources/maps/quality-of-life_en
 #
-# 2: cities datafset -------------------------------------------------------
+# 2: cities dataset -------------------------------------------------------
 # overview of cities included in the shiny application
 # columns are country, original city name as included in study data,
 # and city name in english
@@ -22,14 +21,26 @@
 # Download raw data here:
 # https://ourworldindata.org/grapher/happiness-cantril-ladder
 #
+# 4: `city_prices`--------------------------------------------------------
+# contains prices of various goods (in €) for a wide range of European cities
+# Data was retrieved in May 2023 from the Cost of Living & Prices API:
+# https://cost-of-living-and-prices.p.rapidapi.com/prices
+#
+#
+# 5: `price_categories`---------------------------------------------------
+# encodes which products belong to which category. Product names are taken
+# from the Cost of Living & Prices API:
+# https://cost-of-living-and-prices.p.rapidapi.com/prices
+#
 #########
+
 
 # qualityOL dataset ----------------------------------------------------------#
 
 library(dplyr)
 library(tidyverse)
 
-qualityOL <- readxl::read_excel("C:/Users/Michael/Documents/Psychologie/Master/01_Stats_Courses/Programming_the_next_step/quality_of_life_european_cities_2019_aggregated_data.xlsx",
+qualityOL <- readxl::read_excel("quality_of_life_european_cities_2019_aggregated_data.xlsx",
                                 sheet = "QoL in European cities 2019",
                                 col_names = TRUE,
                                 range = "A2:CI551")
@@ -86,6 +97,7 @@ cities <- data.frame(
 
 cities$city_english[6] <- "Athens"
 cities$city_english[9] <- "Belgrade"
+cities$city_english[5] <- "Antwerp"
 cities$city_english[11] <- "Białystok"
 cities$city_english[16] <- "Brussels"
 cities$city_english[26] <- "Gdańsk"
@@ -106,16 +118,23 @@ cities$city_english[80]<- "Vienna"
 qualityOL <- qualityOL %>%
   left_join(cities, by = join_by(city))
 qualityOL <- qualityOL %>%
-  select(country, city_english, variable, percentage)
+  select(country, city_english, variable, percentage) %>%
+  rename(city = city_english)
 
 # life_satisfaction DATASET --------------------------------------------------#
 
 # load data and filter European countries only
-life_satisfaction <- read.csv("C:/Users/Michael/Documents/Psychologie/Master/01_Stats_Courses/Programming_the_next_step/happiness-cantril-ladder.csv") %>%
+life_satisfaction <- read.csv("happiness-cantril-ladder.csv") %>%
   filter(grepl(paste(unique(cities$country), collapse="|"),
                Entity)) %>%
   select(Entity, Year, Cantril.ladder.score, Code)  %>%
   rename(Life_satisfaction = Cantril.ladder.score)
+
+
+
+# city_prices dataset -------------------------------------------------------#
+city_prices <-  read.csv("city_prices.csv") %>%
+  select(-1)
 
 
 # price_categories dataset --------------------------------------------------#
@@ -155,7 +174,7 @@ price_categories <- data.frame(
 
 
 # store all datasets as internal data -------------------------------------#
-usethis::use_data(life_satisfaction, qualityOL, cities, price_categories,
-                  internal = TRUE, overwrite = TRUE)
+usethis::use_data(life_satisfaction, qualityOL, cities, city_prices, price_categories,
+                  internal = FALSE, overwrite = TRUE)
 
 
