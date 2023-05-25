@@ -135,7 +135,7 @@ ui <- shiny::fluidPage(theme = shinythemes::shinytheme("lumen"),
                     ), # end sidebar settings
                   ), # end tab
 
-                  # Living expenses tab -------------------------
+                  # Living expenses tab -----------------------------------
                   shiny::tabPanel(
                     title = "Living Expenses",
                     icon = shiny::icon("euro"),

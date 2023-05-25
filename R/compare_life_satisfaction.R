@@ -29,7 +29,6 @@ plot_lifeSat <- function(country1, country2){
     sub_df <- life_satisfaction %>%
       dplyr::filter(Entity == country1 | Entity == country2)
 
-    # and plot trajectories
     plot_title <- paste("Self-reported life satisfaction")
 
     plot_subtitle <- paste("in", country1, "and", country2, "(2003 - 2021)")
