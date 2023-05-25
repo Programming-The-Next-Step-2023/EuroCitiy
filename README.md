@@ -6,11 +6,10 @@ Data will be combined from the cost-of-living-and-prices API, as well as open da
 
 
 ## Design of the shiny app
-The shiny app will include two tabs: One for comparing two cities with eachother, the other for finding the highest ranking city based on criteria the user chooses. 
+The shiny app will include two tabs: One for comparing two cities with eachother regarding quality of life and life satisfaction, the other for comparing living expenses and prices of goods. 
 
-In the comparison tab, the user will choose the two cities to compare. To facilitate search, there will first be a dropdown menu for choosing the country and then, conditional on the country chosen, another dropdown menu for the cities within this country. Below that, checkboxes for the criteria will be displayed. Which criteria will be provided still depends on which data I can use. 
+In both tabs the user will choose the two cities to compare. To facilitate search, there will first be a dropdown menu for choosing the country and then, conditional on the country chosen, another dropdown menu for the cities within this country. Below that, checkboxes for the criteria will be displayed. Which criteria will be provided still depends on which data I can use. 
 
-In the second tab, the user can choose the criterion most imprtant to them (again as a checkbox menu). The output will be an interactive map and a visualization of the ranking of the top 10 cities. 
 
 ## Requirements
 - a user interface containing html text, conditional dropdown menus, checkbox menus, the barplot, the interactive rank, and the ranking. 
