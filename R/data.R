@@ -1,11 +1,11 @@
 # Documenting data sets
 
 #' Report on the Quality of life in European Cities data
-#'    Results of the Report on the Quality of life in European Cities, reported
-#'    in 2019 and published in 2020.
 #'
-#' @format ## `qualityOL`
-#' A data frame with 1162 rows and 4 columns:
+#' Results of the Report on the Quality of life in European Cities, reported
+#' in 2019 and published in 2020.
+#'
+#' @format A data frame with 1162 rows and 4 columns:
 #' \describe{
 #'   \item{country}{Country name}
 #'   \item{city}{City name}
@@ -17,12 +17,12 @@
 
 
 #' Cities dataset
-#'    Overview of cities included in the shiny app, their respective countries and
-#'    city names in english. This data frame was created manually and is mainly used
-#'    for internal data wrangling.
 #'
-#' @format ## `cities`
-#' A data frame with 82 rows and 3 columns:
+#' Overview of cities included in the shiny app, their respective countries and
+#' city names in english. This data frame was created manually and is mainly used
+#' for internal data wrangling.
+#'
+#' @format A data frame with 82 rows and 3 columns:
 #' \describe{
 #'   \item{country}{Country name}
 #'   \item{city}{City name}
@@ -32,12 +32,12 @@
 
 
 #' World Happiness Report 2023 data for selected European countries
-#'    This data frame contains a subset of the data of the World Happiness Report 2023.
-#'    Data were collected yearly from 2003 to 2021 and contain country-wide means
-#'    of self-reported life satisfaction on a scale of 0 to 10.
 #'
-#' @format ## `life_satisfaction`
-#' A data frame with 1162 rows and 4 columns:
+#' This data frame contains a subset of the data of the World Happiness Report 2023.
+#' Data were collected yearly from 2003 to 2021 and contain country-wide means
+#' of self-reported life satisfaction on a scale of 0 to 10.
+#'
+#' @format A data frame with 1162 rows and 4 columns:
 #' \describe{
 #'   \item{Entity}{Country name}
 #'   \item{Year}{Year of measurement}
@@ -50,13 +50,13 @@
 
 
 #' Living expenses & product prices of selected European countries
-#'    This data frame contains prices of various goods in European cities.
-#'    Prices are reported in Euro and were retrieved in May 2023.
-#'    Data was taken from Cost of Living & Prices API. Copyright therefore
-#'    does not fall under the MIT license but belongs to Cost of Living & Prices API.
 #'
-#' @format ## `city_prices`
-#' A data frame with 1186 rows and 7 columns:
+#' This data frame contains prices of various goods in European cities.
+#' Prices are reported in Euro and were retrieved in May 2023.
+#' Data was taken from Cost of Living & Prices API. Copyright therefore
+#' does not fall under the MIT license but belongs to Cost of Living & Prices API.
+#'
+#' @format A data frame with 1186 rows and 7 columns:
 #' \describe{
 #'   \item{country}{Country name}
 #'   \item{city}{City name}
@@ -71,11 +71,11 @@
 
 
 #' Price categories data set
-#'     Overview over products contained in city_prices and the categories they belong to.
-#'     This data frame was created manually and is mainly used for internal data wrangling.
 #'
-#'@format `price_categories`
-#' A data frame with 23 rows and 2 columns:
+#' Overview over products contained in city_prices and the categories they belong to.
+#' This data frame was created manually and is mainly used for internal data wrangling.
+#'
+#'@format A data frame with 23 rows and 2 columns:
 #' \describe{
 #'   \item{category}{Category which the product belongs to. Values are "Housing", "Groceries", "Alcoholic Beverages", "Leisure time and going out", "Transportation"}
 #'   \item{item_name}{Name of product}

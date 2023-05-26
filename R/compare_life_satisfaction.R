@@ -1,6 +1,9 @@
 # SCRIPT TO COMPARE LIFE SATISFACTION ON COUNTRY LEVEL
 
-#' @import dplyr plotly
+#' @import dplyr
+#' @importFrom plotly plot_geo
+#' @importFrom plotly add_trace
+#' @importFrom plotly layout
 #' @import ggplot2
 
 

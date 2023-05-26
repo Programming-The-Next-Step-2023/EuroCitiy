@@ -6,7 +6,20 @@
 #'@import shinythemes
 #'@import shinyWidgets
 
+data("city_prices")
+data("life_satisfaction")
+data("price_categories")
+data("cities")
+data("qualityOL")
 
+# Define European countries to be included in the data ------------
+european_countries <- c("Denmark","Netherlands","Turkey","Belgium","Greece","Spain",
+                        "Northern Ireland","Serbia","Germany","Poland","Italy","France",
+                        "Portugal","Slovakia","Romania","Hungary","Bulgaria","Wales",
+                        "Ireland","Switzerland","Scotland","Austria","Finland","Cyprus",
+                        "Slovenia","England","Sweden","Norway","Czechia","Montenegro",
+                        "Iceland","Latvia","North Macedonia", "Estonia","Albania","Malta",
+                        "Lithuania","Croatia","Luxembourg")
 
 ui <- shiny::fluidPage(theme = shinythemes::shinytheme("lumen"),
                 shiny::fluidRow(
@@ -62,7 +75,7 @@ ui <- shiny::fluidPage(theme = shinythemes::shinytheme("lumen"),
                         # choose country of first city
                         shiny::selectInput(inputId = "country1",
                                            label = "Choose country of first city",
-                                           choices = c("Select",sort(unique(cities$country))),
+                                           choices = c("Select",sort(european_countries)),
                                            selected = "Select"),
 
                         # choose city1 based on chosen first country
@@ -80,7 +93,7 @@ ui <- shiny::fluidPage(theme = shinythemes::shinytheme("lumen"),
                         # choose country of second city
                         shiny::selectInput(inputId = "country2",
                                            label = "Choose country of second city",
-                                           choices = c("Select",sort(unique(cities$country))),
+                                           choices = c("Select",sort(european_countries)),
                                            selected = "Select"),
 
                         # choose city2 based on chosen second country
