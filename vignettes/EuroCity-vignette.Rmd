@@ -1,6 +1,8 @@
 ---
 title: "EuroCity-vignette"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    toc: true
 vignette: >
   %\VignetteIndexEntry{EuroCity-vignette}
   %\VignetteEngine{knitr::rmarkdown}
@@ -24,6 +26,7 @@ library(knitr)
 **What do I use the `EuroCity` package for?**
 
 `EuroCity` provides a user interface in form of a shiny app to compare selected European cities regarding: 
+
 * country-wide self-reported life satisfaction
 * inhabitants' satisfaction with several quality of life criteria
 * Product prices & living expenses 
@@ -47,11 +50,7 @@ This command opens the user interface. It consists of 2 tabs:
 1. `Life satisfaction`: Comparing country-wide life satisfaction and satisfaction with quality of life criteria for 2 chosen cities. 
 2. `Living expenses`: Comparing prices of selected products for 2 chosen cities.
 
-![EuroCity shall I move app](.\vignettes\overview.png)
-```{r}
-knitr::include_graphics("./vignettes/overview.png")
-```
-
+![EuroCity shall I move app](overview.png)
 
 
 ### Sidebar: Choosing countries and cities
@@ -60,10 +59,11 @@ Both tabs contain a side bar, allowing the user to choose 2 cities to compare.
 
 To facilitate search, users can first choose the country of interest. This causes a conditional drop-down menu to appear, showing those cities within the chosen country that are included in the data: 
 
-![Sidebar of EuroCity shall I move app](.\vignettes\sidebar.png)
+![Sidebar of EuroCity shall I move app](sidebar.png)
 
 
 *NOTE*: The app will return an error if: 
+
 * You have not selected any countries or cities yet. In this case, the plots illustrating the comparisons do not appear. 
 * You have chosen the same city twice. In this case, please select two non-identical cities for comparison
 * Furthermore, there unfortunately is not data available on the self-reported life satisfaction in the UK. However, you can still see how well cities in the UK have been rated regarding quality of life criteria.
@@ -74,16 +74,16 @@ Already after having chosen 2 countries, 2 plots will appear on the right-hand s
 * A line graph showing the trajectory of self-reported life satisfaction in the two chosen countries from 2003 until 2021
 * A map illustrating the country-means of life satisfaction in 2021 for all European countries included in the app
 
-![Menu to choose quality of life criteria](\vignettes\plots_lifesatisfaction.png)
+![Menu to choose quality of life criteria](plots_lifesatisfaction.png)
 
 
 Next, select a criterion that you are interested in in the radio-button-menu below: 
 
-![Menu to choose quality of life criteria](\vignettes\criteria_menu.png)
+![Menu to choose quality of life criteria](criteria_menu.png)
 
 You will then see a bar plot comparing citizens' ratings of the chosen criterion for the respective cities: 
 
-![Menu to choose quality of life criteria]("\vignettes\plot_QoL.png")
+![Menu to choose quality of life criteria](plot_QoL.png)
 
 
 ### Tab 2: Comparing Living Expenses of 2 European cities
@@ -100,11 +100,11 @@ Below, you will find a drop-down menu in which you can choose the product for wh
 
 After having chosen a category, a second drop-down menu will appear in which you can select a specific product within this category: 
 
-![Menu to choose quality of life criteria]("\vignettes\prices_menu.png")
+![Menu to choose quality of life criteria](prices_menu.png)
 
 In the main panel on the right, a bar plot will be shown which illustrates how much the chosen product cost on average in May 2023 in the chosen cities (prices in €):
 
-![Menu to choose quality of life criteria]("\vignettes\plot_prices.png")
+![Menu to choose quality of life criteria](plot_prices.png)
 
 ---
 
@@ -195,6 +195,7 @@ The data frame includes:
 The package also includes functions which you can use to filter the data sets presented above to get the data you are interested in. 
 
 There are two options: 
+
 * Filter the `city_prices` data set for 2 cities. This can be done using the `filter_prices()` function. 
 * Filter the `qualityOL` data set for 2 cities and a criterion of your interest. For this, use the `filter_QoL_comparison` function. 
 
