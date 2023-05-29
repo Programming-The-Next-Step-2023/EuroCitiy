@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(EuroCity)
+library(knitr)
 ```
 
 ## Overview: Functionality of the `EuroCity` package
@@ -46,13 +47,20 @@ This command opens the user interface. It consists of 2 tabs:
 1. `Life satisfaction`: Comparing country-wide life satisfaction and satisfaction with quality of life criteria for 2 chosen cities. 
 2. `Living expenses`: Comparing prices of selected products for 2 chosen cities.
 
+![EuroCity shall I move app](.\vignettes\overview.png)
+```{r}
+knitr::include_graphics("./vignettes/overview.png")
+```
+
+
+
 ### Sidebar: Choosing countries and cities
 
 Both tabs contain a side bar, allowing the user to choose 2 cities to compare. 
 
 To facilitate search, users can first choose the country of interest. This causes a conditional drop-down menu to appear, showing those cities within the chosen country that are included in the data: 
 
-![Sidebar of EuroCity shall I move app]("\vignettes\sidebar.png")
+![Sidebar of EuroCity shall I move app](.\vignettes\sidebar.png)
 
 
 *NOTE*: The app will return an error if: 
@@ -66,11 +74,12 @@ Already after having chosen 2 countries, 2 plots will appear on the right-hand s
 * A line graph showing the trajectory of self-reported life satisfaction in the two chosen countries from 2003 until 2021
 * A map illustrating the country-means of life satisfaction in 2021 for all European countries included in the app
 
-![Menu to choose quality of life criteria]("\vignettes\plots_lifesatisfaction.png")
+![Menu to choose quality of life criteria](\vignettes\plots_lifesatisfaction.png)
+
 
 Next, select a criterion that you are interested in in the radio-button-menu below: 
 
-![Menu to choose quality of life criteria]("\vignettes\criteria_menu.png")
+![Menu to choose quality of life criteria](\vignettes\criteria_menu.png)
 
 You will then see a bar plot comparing citizens' ratings of the chosen criterion for the respective cities: 
 

@@ -4,7 +4,17 @@
 #' @importFrom plotly plot_geo
 #' @importFrom plotly add_trace
 #' @importFrom plotly layout
-#' @import ggplot2
+#' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 geom_line
+#' @importFrom ggplot2 geom_point
+#' @importFrom ggplot2 geom_bar
+#' @importFrom ggplot2 labs
+#' @importFrom ggplot2 xlim
+#' @importFrom ggplot2 ylim
+#' @importFrom ggplot2 scale_x_continuous
+#' @importFrom ggplot2 scale_color_manual
+#' @importFrom ggplot2 theme_light
+#' @importFrom ggplot2 theme
 
 
 # Function to plot the trajectory of self-reported life satisfaction in two

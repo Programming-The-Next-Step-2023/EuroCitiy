@@ -1,4 +1,4 @@
-# SCRIPT TO COMPARE LIFE SATISFACTION ON COUNTRY LEVEL
+# SCRIPT TO COMPARE LIFE LIVING EXPENSES
 
 
 # TODO: update available cities in documentation.
@@ -50,25 +50,26 @@ plot_prices <- function(select_prices, product){
   #       can also be "No second city" if 2nd city is not chosen yet
   #   `product`: product name, as recorded in price_categories data frame
 
-    # filter data by chosen product
-    product_price <- select_prices %>%
-      dplyr::filter(item_name == product)
+  # filter data by chosen product
+  product_price <- select_prices %>%
+    dplyr::filter(item_name == product)
 
-    # plot minimum, maximum and average price for both cities
-    plot_title <- paste("Average price for", product, "(in €)")
-    plot_subtitle <- paste("Comparing", product_price$city[1],
-                           "and", product_price$city[2])
+  # plot minimum, maximum and average price for both cities
+  plot_title <- paste("Average price for", product, "(in €)")
+  plot_subtitle <- paste("Comparing", product_price$city[1],
+                         "and", product_price$city[2])
+  x_axis_order <- as.factor(c(product_price$city[1],  product_price$city[2]))
 
-    ggplot2::ggplot(product_price, ggplot2::aes(x = city,
-                                                y = avg,
-                                                fill = city)) +
-      ggplot2::geom_bar(stat="identity", width=.5, fill=c("#004346", "#49BEAA")) +
-      ggplot2::labs(title = plot_title,
-                    subtitle= plot_subtitle,
-                    caption="source: https://cost-of-living-and-prices.p.rapidapi.com",
-                    x = " ",
-                    y = "EURO") +
-      ggplot2::theme_light()
+  ggplot2::ggplot(product_price, ggplot2::aes(x = factor(city, x_axis_order),
+                                              y = avg,
+                                              fill = city)) +
+    ggplot2::geom_bar(stat="identity", width=.5, fill=c("#004346", "#49BEAA")) +
+    ggplot2::labs(title = plot_title,
+                  subtitle= plot_subtitle,
+                  caption="source: https://cost-of-living-and-prices.p.rapidapi.com",
+                  x = " ",
+                  y = "EURO") +
+    ggplot2::theme_light()
 
 }
 
