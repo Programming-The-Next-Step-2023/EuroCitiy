@@ -25,18 +25,20 @@ plot_lifeSat <- function(country1, country2){
     # Inform user to choose two countries
   if(country1 == "Select" | country2 == "Select") {
     plot <- ggplot2::ggplot() +
-      ggplot2::annotate("Please select two cities to compare.",
+      ggplot2::annotate("text",
                x = 1, y = 1,
-               size = 8) +
+               size = 8,
+               label = "Please select two cities to compare.") +
       ggplot2::theme_void()
 
     # Give error when both countries are identical
   } else if(country1 == country2){
     plot <- ggplot2::ggplot() +
-      ggplot2::annotate("Please choose two non-identical countries for comparison.",
+      ggplot2::annotate("text",
                x = 1,
                y = 1,
-               size = 8) +
+               size = 6,
+               label = "Please choose two non-identical countries for comparison.") +
       ggplot2::theme_void()
 
   } else {

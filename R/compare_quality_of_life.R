@@ -12,7 +12,16 @@
 #'
 #' @param city1 First city of choice.
 #'
-#'    Valid city names are:
+#'    \emph{Valid city names are}:
+#'    Aalborg, Amsterdam, Antwerp, Athens, Barcelona, Belfast, Berlin, Białystok,
+#'    Bologna, Bordeaux, Braga, Bratislava, Brussels, Bucharest, Budapest,
+#'    Burgas, Cardiff, Copenhagen, Dortmund, Dublin, Essen, Gdańsk, Geneva,
+#'    Glasgow, Graz, Groningen, Hamburg, Helsinki, Heraklion, Košice, Leipzig,
+#'    Liège, Lille, Lisbon, Ljubljana, London, Madrid, Málaga, Malmö, Manchester,
+#'    Marseille, Miskolc, Munich, Naples, Nicosia, Oslo, Ostrava, Oulu, Oviedo,
+#'    Palermo, Paris, Podgorica, Prague, Rennes, Reykjavík, Riga, Rome, Rostock,
+#'    Rotterdam, Skopje, Sofia, Stockholm, Strasbourg, Tallinn, Tirana,
+#'    Turin, Valletta, Verona, Vienna, Vilnius, Warsaw, Zagreb, Zurich
 #'
 #'
 #' @param city2 Second city
@@ -38,11 +47,22 @@ filter_QoL_comparison <- function(city1, city2, criterion){
 # TODO: change title & subtitle
 plot_QoL_comparison <- function(comparison_df){
   if(is.na(comparison_df$city[1]) & is.na(comparison_df$city[1])){
-    stop("Please choose two cities for comparison")
+    plot <- ggplot2::ggplot() +
+      ggplot2::annotate("text",
+                        x = 1, y = 1,
+                        size = 8,
+                        label = "Please select two cities to compare.") +
+      ggplot2::theme_void()
 
     # plot error if 2 identical cities are chosen
   } else if(nrow(comparison_df) == 1){
-    stop("Please choose two identical cities for comparison")
+    plot <- ggplot2::ggplot() +
+      ggplot2::annotate("text",
+                        x = 1,
+                        y = 1,
+                        size = 6,
+                        label = "Please choose two non-identical countries for comparison.") +
+      ggplot2::theme_void()
 
     # plot bar graph
   } else {
@@ -66,9 +86,8 @@ plot_QoL_comparison <- function(comparison_df){
       ggplot2::theme(plot.title = ggplot2::element_text(size = 22),
                      axis.text.x = ggplot2::element_text(size = 20),
                      axis.text.y = ggplot2::element_text(size = 15))
-
-    return(plot)
   }
+  return(plot)
 }
 
 

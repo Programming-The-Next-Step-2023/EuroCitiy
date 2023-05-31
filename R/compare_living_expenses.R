@@ -12,17 +12,17 @@
 #'
 #' @param city1 First city to be retrieved.
 #'
-#'    Valid city names are: "Barcelona", "Athens", "Amsterdam", "Bologna" "Bordeaux", "Brussels", "Helsinki"
-#'    "Copenhagen", "Lisbon", "Dublin", "Hamburg", "Groningen", "Berlin", "Aalborg",
-#'    "Bratislava", "Bucharest", "Budapest", "Madrid", "Rome", "Oslo", "Paris",
-#'    "Prague", "Stockholm", "Sofia", "Rotterdam", "Tallinn", "Vilnius", "Zagreb",
-#'    "Warsaw", "Verona", "Zurich", "Vienna", "Ljubljana", "Lille", "Malmö",
-#'    "Munich", "Riga", "Reykjavík", "Valletta", "Gdańsk", "Oulu", "Leipzig",
-#'    "Braga", "Marseille", "Antwerp", "Tirana", "Strasbourg", "Skopje", "Podgorica",
-#'    "Białystok", "Nicosia", "Miskolc", "Málaga", "Košice", "Graz", "Heraklion",
-#'    "Oviedo", "Geneva", "Burgas", "Ostrava", "Turin", "Rostock", "Rennes",
-#'    "Palermo", "Naples", "Manchester", "London", "Glasgow", "Cardiff", "Belfast",
-#'    "Dortmund", "Essen", "Liège"
+#'    Valid city names are:
+#'    Aalborg, Amsterdam, Antwerp, Athens, Barcelona, Belfast, Berlin, Białystok,
+#'    Bologna, Bordeaux, Braga, Bratislava, Brussels, Bucharest, Budapest,
+#'    Burgas, Cardiff, Copenhagen, Dortmund, Dublin, Essen, Gdańsk, Geneva,
+#'    Glasgow, Graz, Groningen, Hamburg, Helsinki, Heraklion, Košice, Leipzig,
+#'    Liège, Lille, Lisbon, Ljubljana, London, Madrid, Málaga, Malmö,
+#'    Manchester, Marseille, Miskolc, Munich, Naples, Nicosia, Oslo, Ostrava,
+#'    Oulu, Oviedo, Palermo, Paris, Podgorica, Prague, Rennes, Reykjavík,
+#'    Riga, Rome, Rostock, Rotterdam, Skopje, Sofia, Stockholm, Strasbourg,
+#'    Tallinn, Tirana, Turin, Valletta, Verona, Vienna, Vilnius, Warsaw,
+#'    Zagreb, Zurich
 #'
 #' @param city2 Second city to be retrieved
 #'

@@ -10,7 +10,16 @@ filter_QoL_comparison(city1, city2, criterion)
 \arguments{
 \item{city1}{First city of choice.
 
-   Valid city names are:}
+   \emph{Valid city names are}:
+   Aalborg, Amsterdam, Antwerp, Athens, Barcelona, Belfast, Berlin, Białystok,
+   Bologna, Bordeaux, Braga, Bratislava, Brussels, Bucharest, Budapest,
+   Burgas, Cardiff, Copenhagen, Dortmund, Dublin, Essen, Gdańsk, Geneva,
+   Glasgow, Graz, Groningen, Hamburg, Helsinki, Heraklion, Košice, Leipzig,
+   Liège, Lille, Lisbon, Ljubljana, London, Madrid, Málaga, Malmö, Manchester,
+   Marseille, Miskolc, Munich, Naples, Nicosia, Oslo, Ostrava, Oulu, Oviedo,
+   Palermo, Paris, Podgorica, Prague, Rennes, Reykjavík, Riga, Rome, Rostock,
+   Rotterdam, Skopje, Sofia, Stockholm, Strasbourg, Tallinn, Tirana,
+   Turin, Valletta, Verona, Vienna, Vilnius, Warsaw, Zagreb, Zurich}
 
 \item{city2}{Second city}
 
