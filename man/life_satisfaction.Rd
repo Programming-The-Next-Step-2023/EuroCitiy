@@ -3,12 +3,8 @@
 \docType{data}
 \name{life_satisfaction}
 \alias{life_satisfaction}
-\title{World Happiness Report 2023 data for selected European countries
-   This data frame contains a subset of the data of the World Happiness Report 2023.
-   Data were collected yearly from 2003 to 2021 and contain country-wide means
-   of self-reported life satisfaction on a scale of 0 to 10.}
+\title{World Happiness Report 2023 data for selected European countries}
 \format{
-## `life_satisfaction`
 A data frame with 1162 rows and 4 columns:
 \describe{
   \item{Entity}{Country name}
@@ -25,9 +21,8 @@ Helliwell, J. F., Layard, R., Sachs, J. D., De Neve, J.-E., Aknin, L. B., & Wang
 life_satisfaction
 }
 \description{
-World Happiness Report 2023 data for selected European countries
-   This data frame contains a subset of the data of the World Happiness Report 2023.
-   Data were collected yearly from 2003 to 2021 and contain country-wide means
-   of self-reported life satisfaction on a scale of 0 to 10.
+This data frame contains a subset of the data of the World Happiness Report 2023.
+Data were collected yearly from 2003 to 2021 and contain country-wide means
+of self-reported life satisfaction on a scale of 0 to 10.
 }
 \keyword{datasets}

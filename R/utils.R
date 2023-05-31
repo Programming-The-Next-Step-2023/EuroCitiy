@@ -1,15 +1,13 @@
 # HELPER FUNCTIONS
 
 # Define European countries to be included in the data ------------
-european_countries <- c("Denmark","Netherlands","Turkey","Belgium","Greece",
-                        "Spain","Northern Ireland","Serbia","Germany","Poland",
-                        "Italy","France","Portugal","Slovakia","Romania",
-                        "Hungary","Bulgaria","Wales","Ireland","Switzerland",
-                        "Scotland","Austria","Finland","Cyprus",
-                        "Slovenia","England","Sweden","Norway","Czechia",
-                        "Montenegro","Iceland","Latvia","North Macedonia",
-                        "Estonia","Albania","Malta","Lithuania",
-                        "Croatia","Luxembourg")
+european_countries <- c("Denmark","Netherlands","Turkey","Belgium","Greece","Spain",
+                        "Northern Ireland","Serbia","Germany","Poland","Italy","France",
+                        "Portugal","Slovakia","Romania","Hungary","Bulgaria","Wales",
+                        "Ireland","Switzerland","Scotland","Austria","Finland","Cyprus",
+                        "Slovenia","England","Sweden","Norway","Czechia","Montenegro",
+                        "Iceland","Latvia","North Macedonia", "Estonia","Albania","Malta",
+                        "Lithuania","Croatia","Luxembourg")
 
 # Define European cities included ---------------
 european_cities <- c("Aalborg","Amsterdam","Ankara","Antalya","Antwerpen",

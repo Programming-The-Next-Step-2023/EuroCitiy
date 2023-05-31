@@ -1,4 +1,4 @@
-# SCRIPT TO COMPARE LIFE SATISFACTION ON COUNTRY LEVEL
+# SCRIPT TO COMPARE LIFE LIVING EXPENSES
 
 
 # TODO: update available cities in documentation.
@@ -31,60 +31,46 @@
 #'
 #'
 #' @export
+# function to filter city_prices data frame by 2 chosen cities
 filter_prices <- function(city1, city2){
-  # Return informative error if both selected cities are the same
-  if(city1 == city2){
-    stop("Please select two non-identical cities to compare.")
-  }
 
-  # only execute this once the second city is chosen (to avoid error in console)
-  if(city2 != "Select"){
-    # filter data frame by provided city names
-    prices_df <- prices_df %>%
-      dplyr::filter(city == city1 | city == city2)
+  select_prices <- city_prices %>%
+    dplyr::filter(city == city1 | city == city2) %>%
+    dplyr::select(city, item_name, category, avg)
 
-    return(prices_df)
-  } else {
-    return("No second city")
-  }
+  return(select_prices)
 }
 
 
 
 # plot prices
-plot_prices <- function(prices, product){
+plot_prices <- function(select_prices, product){
   # Input:
   #   `prices`: city_prices data frame, filtered for 2 cities
   #       can also be "No second city" if 2nd city is not chosen yet
   #   `product`: product name, as recorded in price_categories data frame
 
-  # If 2nd city is not yet chosen: give informative error
-  if(prices == "No second city"){
-    stop("Please choose second city for comparison")
+  # filter data by chosen product
+  product_price <- select_prices %>%
+    dplyr::filter(item_name == product)
 
-    # once chosen: filter and plot
-  } else {
-    # filter data by chosen product
-    product_price <- prices %>%
-      dplyr::filter(item_name == product)
+  # plot minimum, maximum and average price for both cities
+  plot_title <- paste("Average price for", product, "(in €)")
+  plot_subtitle <- paste("Comparing", product_price$city[1],
+                         "and", product_price$city[2])
+  x_axis_order <- as.factor(c(product_price$city[1],  product_price$city[2]))
 
-    # plot minimum, maximum and average price for both cities
-    plot_title <- paste("Average price for", product, "(in €)")
-    plot_subtitle <- paste("Comparing", product_price$city[1],
-                           "and", product_price$city[2])
+  ggplot2::ggplot(product_price, ggplot2::aes(x = factor(city, x_axis_order),
+                                              y = avg,
+                                              fill = city)) +
+    ggplot2::geom_bar(stat="identity", width=.5, fill=c("#004346", "#49BEAA")) +
+    ggplot2::labs(title = plot_title,
+                  subtitle= plot_subtitle,
+                  caption="source: https://cost-of-living-and-prices.p.rapidapi.com",
+                  x = " ",
+                  y = "EURO") +
+    ggplot2::theme_light()
 
-    ggplot2::ggplot(product_price, ggplot2::aes(x = city,
-                                                y = avg,
-                                                fill = city)) +
-      ggplot2::geom_bar(stat="identity", width=.5, fill=c("#004346", "#49BEAA")) +
-      ggplot2::labs(title = plot_title,
-                    subtitle= plot_subtitle,
-                    caption="source: https://cost-of-living-and-prices.p.rapidapi.com",
-                    x = " ",
-                    y = "EURO") +
-      ggplot2::theme_light()
-
-  }
 }
 
 

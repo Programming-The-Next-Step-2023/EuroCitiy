@@ -3,11 +3,8 @@
 \docType{data}
 \name{qualityOL}
 \alias{qualityOL}
-\title{Report on the Quality of life in European Cities data
-   Results of the Report on the Quality of life in European Cities, reported
-   in 2019 and published in 2020.}
+\title{Report on the Quality of life in European Cities data}
 \format{
-## `qualityOL`
 A data frame with 1162 rows and 4 columns:
 \describe{
   \item{country}{Country name}
@@ -23,8 +20,7 @@ A data frame with 1162 rows and 4 columns:
 qualityOL
 }
 \description{
-Report on the Quality of life in European Cities data
-   Results of the Report on the Quality of life in European Cities, reported
-   in 2019 and published in 2020.
+Results of the Report on the Quality of life in European Cities, reported
+in 2019 and published in 2020.
 }
 \keyword{datasets}

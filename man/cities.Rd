@@ -3,12 +3,8 @@
 \docType{data}
 \name{cities}
 \alias{cities}
-\title{Cities dataset
-   Overview of cities included in the shiny app, their respective countries and
-   city names in english. This data frame was created manually and is mainly used
-   for internal data wrangling.}
+\title{Cities dataset}
 \format{
-## `cities`
 A data frame with 82 rows and 3 columns:
 \describe{
   \item{country}{Country name}
@@ -20,9 +16,8 @@ A data frame with 82 rows and 3 columns:
 cities
 }
 \description{
-Cities dataset
-   Overview of cities included in the shiny app, their respective countries and
-   city names in english. This data frame was created manually and is mainly used
-   for internal data wrangling.
+Overview of cities included in the shiny app, their respective countries and
+city names in english. This data frame was created manually and is mainly used
+for internal data wrangling.
 }
 \keyword{datasets}

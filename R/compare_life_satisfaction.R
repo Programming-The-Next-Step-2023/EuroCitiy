@@ -1,7 +1,20 @@
 # SCRIPT TO COMPARE LIFE SATISFACTION ON COUNTRY LEVEL
 
-#' @import dplyr plotly
-#' @import ggplot2
+#' @import dplyr
+#' @importFrom plotly plot_geo
+#' @importFrom plotly add_trace
+#' @importFrom plotly layout
+#' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 geom_line
+#' @importFrom ggplot2 geom_point
+#' @importFrom ggplot2 geom_bar
+#' @importFrom ggplot2 labs
+#' @importFrom ggplot2 xlim
+#' @importFrom ggplot2 ylim
+#' @importFrom ggplot2 scale_x_continuous
+#' @importFrom ggplot2 scale_color_manual
+#' @importFrom ggplot2 theme_light
+#' @importFrom ggplot2 theme
 
 
 # Function to plot the trajectory of self-reported life satisfaction in two
@@ -29,7 +42,6 @@ plot_lifeSat <- function(country1, country2){
     sub_df <- life_satisfaction %>%
       dplyr::filter(Entity == country1 | Entity == country2)
 
-    # and plot trajectories
     plot_title <- paste("Self-reported life satisfaction")
 
     plot_subtitle <- paste("in", country1, "and", country2, "(2003 - 2021)")

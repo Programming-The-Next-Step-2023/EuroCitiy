@@ -26,43 +26,49 @@
 #'
 #' @export
 filter_QoL_comparison <- function(city1, city2, criterion){
-  # only execute this once the second city is chosen (to avoid error in console)
-  if(city2 != "Select"){
-    comparison <- qualityOL %>%
+     comparison <- qualityOL %>%
       dplyr::filter(variable == criterion &
                       (city == city1 | city == city2)) %>%
       dplyr::select(variable, city, percentage)
 
     return(comparison)
-
-  }
 }
 
 # Function to plot comparison of filtered quality of life data
 # TODO: change title & subtitle
 plot_QoL_comparison <- function(comparison_df){
-  plot_title <- paste("Percentage of inhabitants satisfied with ",
-                      variable_names[variable_names$variable == comparison_df$variable[1],2])
+  if(is.na(comparison_df$city[1]) & is.na(comparison_df$city[1])){
+    stop("Please choose two cities for comparison")
 
-  plot_subtitle <- paste("Comparing", comparison_df$city[1],
-                         "and" ,  comparison_df$city[2])
+    # plot error if 2 identical cities are chosen
+  } else if(nrow(comparison_df) == 1){
+    stop("Please choose two identical cities for comparison")
 
-  plot <- ggplot2::ggplot(comparison_df, ggplot2::aes(x = city,
-                      y = percentage,
-                      fill = city)) +
-    ggplot2::geom_bar(stat="identity", width=.5, fill=c("#004346", "#49BEAA")) +
-    ggplot2::labs(title = plot_title,
-         subtitle= plot_subtitle,
-         caption="source: Report on the Quality of life in European Cities, 2020",
-         x = " ",
-         y = "%") +
-    ggplot2::ylim(0, 1) +
-    ggplot2::theme_light() +
-    ggplot2::theme(plot.title = ggplot2::element_text(size = 22),
-          axis.text.x = ggplot2::element_text(size = 20),
-          axis.text.y = ggplot2::element_text(size = 15))
+    # plot bar graph
+  } else {
+    plot_title <- paste("Percentage of inhabitants satisfied with ",
+                        variable_names[variable_names$variable == comparison_df$variable[1],2])
 
-  return(plot)
+    plot_subtitle <- paste("Comparing", comparison_df$city[1],
+                           "and" ,  comparison_df$city[2])
+
+    plot <- ggplot2::ggplot(comparison_df, ggplot2::aes(x = city,
+                                                        y = percentage,
+                                                        fill = city)) +
+      ggplot2::geom_bar(stat="identity", width=.5, fill=c("#004346", "#49BEAA")) +
+      ggplot2::labs(title = plot_title,
+                    subtitle= plot_subtitle,
+                    caption="source: Report on the Quality of life in European Cities, 2020",
+                    x = " ",
+                    y = "%") +
+      ggplot2::ylim(0, 1) +
+      ggplot2::theme_light() +
+      ggplot2::theme(plot.title = ggplot2::element_text(size = 22),
+                     axis.text.x = ggplot2::element_text(size = 20),
+                     axis.text.y = ggplot2::element_text(size = 15))
+
+    return(plot)
+  }
 }
 
 

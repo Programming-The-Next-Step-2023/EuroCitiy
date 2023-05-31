@@ -3,11 +3,8 @@
 \docType{data}
 \name{price_categories}
 \alias{price_categories}
-\title{Price categories data set
-    Overview over products contained in city_prices and the categories they belong to.
-    This data frame was created manually and is mainly used for internal data wrangling.}
+\title{Price categories data set}
 \format{
-`price_categories`
 A data frame with 23 rows and 2 columns:
 \describe{
   \item{category}{Category which the product belongs to. Values are "Housing", "Groceries", "Alcoholic Beverages", "Leisure time and going out", "Transportation"}
@@ -18,8 +15,7 @@ A data frame with 23 rows and 2 columns:
 price_categories
 }
 \description{
-Price categories data set
-    Overview over products contained in city_prices and the categories they belong to.
-    This data frame was created manually and is mainly used for internal data wrangling.
+Overview over products contained in city_prices and the categories they belong to.
+This data frame was created manually and is mainly used for internal data wrangling.
 }
 \keyword{datasets}

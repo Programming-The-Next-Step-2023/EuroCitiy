@@ -3,13 +3,8 @@
 \docType{data}
 \name{city_prices}
 \alias{city_prices}
-\title{Living expenses & product prices of selected European countries
-   This data frame contains prices of various goods in European cities.
-   Prices are reported in Euro and were retrieved in May 2023.
-   Data was taken from Cost of Living & Prices API. Copyright therefore
-   does not fall under the MIT license but belongs to Cost of Living & Prices API.}
+\title{Living expenses & product prices of selected European countries}
 \format{
-## `city_prices`
 A data frame with 1186 rows and 7 columns:
 \describe{
   \item{country}{Country name}
@@ -28,10 +23,9 @@ Cost of Living & Prices API: <https://cost-of-living-and-prices.p.rapidapi.com/p
 city_prices
 }
 \description{
-Living expenses & product prices of selected European countries
-   This data frame contains prices of various goods in European cities.
-   Prices are reported in Euro and were retrieved in May 2023.
-   Data was taken from Cost of Living & Prices API. Copyright therefore
-   does not fall under the MIT license but belongs to Cost of Living & Prices API.
+This data frame contains prices of various goods in European cities.
+Prices are reported in Euro and were retrieved in May 2023.
+Data was taken from Cost of Living & Prices API. Copyright therefore
+does not fall under the MIT license but belongs to Cost of Living & Prices API.
 }
 \keyword{datasets}
