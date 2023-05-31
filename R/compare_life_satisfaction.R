@@ -5,6 +5,7 @@
 #' @importFrom plotly add_trace
 #' @importFrom plotly layout
 #' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 annotate
 #' @importFrom ggplot2 geom_line
 #' @importFrom ggplot2 geom_point
 #' @importFrom ggplot2 geom_bar
@@ -14,28 +15,29 @@
 #' @importFrom ggplot2 scale_x_continuous
 #' @importFrom ggplot2 scale_color_manual
 #' @importFrom ggplot2 theme_light
+#' @importFrom ggplot2 theme_void
 #' @importFrom ggplot2 theme
 
 
 # Function to plot the trajectory of self-reported life satisfaction in two
 # chosen cities between 2003 and 2021
 plot_lifeSat <- function(country1, country2){
-  # first, check if values entered for country1 and country2 are valid
-  if(!(country1 %in% european_countries) & country1 != "Select"){
-    stop(paste(country1,
-    "is not a valid input. Check documentation to see which countries can be selected for comparison."))
-  } else if(!(country2 %in% european_countries) & country2 != "Select"){
-    stop(paste(country2,
-    "is not a valid input. Check documentation to see which countries can be selected for comparison."))
-  }
-
-  # Inform user to choose two countries
+    # Inform user to choose two countries
   if(country1 == "Select" | country2 == "Select") {
-    stop("Please choose two countries for comparison.")
+    plot <- ggplot2::ggplot() +
+      ggplot2::annotate("Please select two cities to compare.",
+               x = 1, y = 1,
+               size = 8) +
+      ggplot2::theme_void()
 
     # Give error when both countries are identical
   } else if(country1 == country2){
-    stop("Please choose two non-identical countries for comparison.")
+    plot <- ggplot2::ggplot() +
+      ggplot2::annotate("Please choose two non-identical countries for comparison.",
+               x = 1,
+               y = 1,
+               size = 8) +
+      ggplot2::theme_void()
 
   } else {
     # filter life_satisfaction by chosen countries and plot trajectory
@@ -62,9 +64,8 @@ plot_lifeSat <- function(country1, country2){
       ggplot2::theme(plot.title = ggplot2::element_text(size = 22),
                      axis.text.x = ggplot2::element_text(size = 10),
                      axis.text.y = ggplot2::element_text(size = 13))
-
-    return(plot)
-    }
+  }
+  return(plot)
 }
 
 
