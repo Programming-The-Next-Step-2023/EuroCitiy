@@ -112,7 +112,7 @@ In the main panel on the right, a bar plot will be shown which illustrates how m
 
 The following data sets are included in `EuroCity`: 
 
-* `cities`: overview over the cities included in the package. This is mainly used for internal computations. 
+* `cities`: overview over the cities included in the package. This is mainly used for internal computations (but feel free to use it). 
 * `price_categories`: overview over the products which are included in the living expenses comparison tab. This is also mainly used for internal function calls. 
 * `city_prices`: contains the minimum, maximum, and average price of several goods in each European city (in May 2023).
 * `life_satisfaction`: contains the mean self-reported life satisfaction of each European country between 2003 and 2021. 
