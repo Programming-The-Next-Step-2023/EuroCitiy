@@ -142,7 +142,10 @@ ui <- shiny::fluidPage(theme = shinythemes::shinytheme("lumen"),
 
                         shiny::fluidRow(
                           # plot output: barchart cities quality of life
-                          shiny::plotOutput("barchart1")
+                          shiny::conditionalPanel(
+                            condition = "input.country1 != 'Select' & input.country2 != 'Select'",
+                            shiny::plotOutput("barchart1")
+                          )
                         )
                       )
                     ), # end sidebar settings
@@ -196,7 +199,10 @@ ui <- shiny::fluidPage(theme = shinythemes::shinytheme("lumen"),
                       # Living expenses main panel ---
                       shiny::mainPanel(
                         # plot output: barchart cities quality of life
-                        shiny::plotOutput("barchart_prices")
+                        shiny::conditionalPanel(
+                          condition = "input.country1_prices != 'Select' & input.country2_prices != 'Select'",
+                          shiny::plotOutput("barchart_prices")
+                        )
                       ) # end main panel
                     ) # end sidebarpanel
                   ) # end sidebarlayout

@@ -35,12 +35,23 @@
 #'
 #' @export
 filter_QoL_comparison <- function(city1, city2, criterion){
-     comparison <- qualityOL %>%
+  # only execute when cities are selected to avoid errors
+  if(city1 != "Select" & city2 != "Select"){
+    comparison <- qualityOL %>%
       dplyr::filter(variable == criterion &
                       (city == city1 | city == city2)) %>%
       dplyr::select(variable, city, percentage)
 
-    return(comparison)
+  } else {
+    # return empty df
+    comparison <- data.frame(
+      country = rep(NA, 2),
+      city = rep(NA, 2),
+      variable = rep(NA, 2),
+      percentage = rep(NA, 2)
+    )
+  }
+  return(comparison)
 }
 
 # Function to plot comparison of filtered quality of life data

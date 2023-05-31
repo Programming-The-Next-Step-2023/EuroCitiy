@@ -33,11 +33,21 @@
 #' @export
 # function to filter city_prices data frame by 2 chosen cities
 filter_prices <- function(city1, city2){
+  # only execute when cities are selected to avoid errors
+  if(city1 != "Select" & city2 != "Select"){
+    select_prices <- city_prices %>%
+      dplyr::filter(city == city1 | city == city2) %>%
+      dplyr::select(city, item_name, category, avg)
 
-  select_prices <- city_prices %>%
-    dplyr::filter(city == city1 | city == city2) %>%
-    dplyr::select(city, item_name, category, avg)
-
+    # else return empty df
+  } else {
+    select_prices <- data.frame(
+      city = rep(NA, 2),
+      item_name = rep(NA, 2),
+      category = rep(NA, 2),
+      avg = rep(0, 2)
+    )
+  }
   return(select_prices)
 }
 
@@ -50,27 +60,49 @@ plot_prices <- function(select_prices, product){
   #       can also be "No second city" if 2nd city is not chosen yet
   #   `product`: product name, as recorded in price_categories data frame
 
-  # filter data by chosen product
-  product_price <- select_prices %>%
-    dplyr::filter(item_name == product)
+  # If no city selected, inform user to do so
+  if(is.na(unique(select_prices$city)[1]) & is.na(unique(select_prices$city)[2])){
+    plot <- ggplot2::ggplot() +
+      ggplot2::annotate("text",
+                        x = 1, y = 1,
+                        size = 8,
+                        label = "Please select two cities to compare.") +
+      ggplot2::theme_void()
 
-  # plot minimum, maximum and average price for both cities
-  plot_title <- paste("Average price for", product, "(in €)")
-  plot_subtitle <- paste("Comparing", product_price$city[1],
-                         "and", product_price$city[2])
-  x_axis_order <- as.factor(c(product_price$city[1],  product_price$city[2]))
+    # Plot error if same cities chosen
+  } else if(length(unique(select_prices$city)) == 1){
+    plot <- ggplot2::ggplot() +
+      ggplot2::annotate("text",
+                        x = 1,
+                        y = 1,
+                        size = 6,
+                        label = "Please choose two non-identical countries for comparison.") +
+      ggplot2::theme_void()
 
-  ggplot2::ggplot(product_price, ggplot2::aes(x = factor(city, x_axis_order),
-                                              y = avg,
-                                              fill = city)) +
-    ggplot2::geom_bar(stat="identity", width=.5, fill=c("#004346", "#49BEAA")) +
-    ggplot2::labs(title = plot_title,
-                  subtitle= plot_subtitle,
-                  caption="source: https://cost-of-living-and-prices.p.rapidapi.com",
-                  x = " ",
-                  y = "EURO") +
-    ggplot2::theme_light()
+    # else plot bar graph
+  } else {
+    # filter data by chosen product
+    product_price <- select_prices %>%
+      dplyr::filter(item_name == product)
 
+    # plot minimum, maximum and average price for both cities
+    plot_title <- paste("Average price for", product, "(in €)")
+    plot_subtitle <- paste("Comparing", product_price$city[1],
+                           "and", product_price$city[2])
+    x_axis_order <- as.factor(c(product_price$city[1],  product_price$city[2]))
+
+    plot <- ggplot2::ggplot(product_price, ggplot2::aes(x = factor(city, x_axis_order),
+                                                y = avg,
+                                                fill = city)) +
+      ggplot2::geom_bar(stat="identity", width=.5, fill=c("#004346", "#49BEAA")) +
+      ggplot2::labs(title = plot_title,
+                    subtitle= plot_subtitle,
+                    caption="source: https://cost-of-living-and-prices.p.rapidapi.com",
+                    x = " ",
+                    y = "EURO") +
+      ggplot2::theme_light()
+  }
+  return(plot)
 }
 
 
