@@ -60,7 +60,8 @@ plot_lifeSat <- function(country1, country2){
                     y = "Self-reported life satisfaction") +
       ggplot2::ylim(0, 9) +
       ggplot2::xlim(2003, 2021) +
-      ggplot2::scale_x_continuous(n.breaks = 19) +
+      ggplot2::scale_x_continuous(breaks = c(2003, 2005, 2007, 2009, 2011, 2013,
+                                             2015, 2017, 2019, 2021)) +
       ggplot2::scale_color_manual(values= c("#F6AA1C","#BA324F")) +
       ggplot2::theme_light() +
       ggplot2::theme(plot.title = ggplot2::element_text(size = 22),
