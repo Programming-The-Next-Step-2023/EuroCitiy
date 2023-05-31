@@ -1,8 +1,6 @@
 # SCRIPT TO COMPARE LIFE LIVING EXPENSES
 
 
-# TODO: update available cities in documentation.
-
 #' Get living expenses of two European cities
 #'
 #' @description This function returns a data frame containing the prices of

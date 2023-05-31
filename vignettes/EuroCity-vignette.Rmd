@@ -50,7 +50,7 @@ This command opens the user interface. It consists of 2 tabs:
 1. `Life satisfaction`: Comparing country-wide life satisfaction and satisfaction with quality of life criteria for 2 chosen cities. 
 2. `Living expenses`: Comparing prices of selected products for 2 chosen cities.
 
-![EuroCity shall I move app](overview.png)
+![EuroCity shall I move app](overview.png){width=90%}
 
 
 ### Sidebar: Choosing countries and cities
@@ -71,10 +71,11 @@ To facilitate search, users can first choose the country of interest. This cause
 ### Tab 1: Comparing Life Satisfaction of 2 European cities
 
 Already after having chosen 2 countries, 2 plots will appear on the right-hand side: 
+
 * A line graph showing the trajectory of self-reported life satisfaction in the two chosen countries from 2003 until 2021
 * A map illustrating the country-means of life satisfaction in 2021 for all European countries included in the app
 
-![Menu to choose quality of life criteria](plots_lifesatisfaction.png)
+![Menu to choose quality of life criteria](plots_lifesatisfaction.png){width=80%}
 
 
 Next, select a criterion that you are interested in in the radio-button-menu below: 
@@ -83,7 +84,7 @@ Next, select a criterion that you are interested in in the radio-button-menu bel
 
 You will then see a bar plot comparing citizens' ratings of the chosen criterion for the respective cities: 
 
-![Menu to choose quality of life criteria](plot_QoL.png)
+![Menu to choose quality of life criteria](plot_QoL.png){width=80%}
 
 
 ### Tab 2: Comparing Living Expenses of 2 European cities
@@ -104,7 +105,7 @@ After having chosen a category, a second drop-down menu will appear in which you
 
 In the main panel on the right, a bar plot will be shown which illustrates how much the chosen product cost on average in May 2023 in the chosen cities (prices in €):
 
-![Menu to choose quality of life criteria](plot_prices.png)
+![Menu to choose quality of life criteria](plot_prices.png){width=80%}
 
 ---
 

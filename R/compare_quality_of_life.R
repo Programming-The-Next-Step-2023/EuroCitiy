@@ -55,7 +55,6 @@ filter_QoL_comparison <- function(city1, city2, criterion){
 }
 
 # Function to plot comparison of filtered quality of life data
-# TODO: change title & subtitle
 plot_QoL_comparison <- function(comparison_df){
   if(is.na(comparison_df$city[1]) & is.na(comparison_df$city[1])){
     plot <- ggplot2::ggplot() +
