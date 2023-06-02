@@ -203,6 +203,12 @@ ui <- shiny::fluidPage(theme = shinythemes::shinytheme("lumen"),
                         shiny::conditionalPanel(
                           condition = "input.country1_prices != 'Select' | input.country2_prices != 'Select'",
                           shiny::plotOutput("barchart_prices")
+                        ),
+
+                        # plot output: print category-wide price comparison
+                        shiny::conditionalPanel(
+                          condition = "input.country1_prices != 'Select' | input.country2_prices != 'Select'",
+                          shiny::plotOutput("cat_price_comparison")
                         )
                       ) # end main panel
                     ) # end sidebarpanel

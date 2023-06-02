@@ -51,7 +51,7 @@ filter_prices <- function(city1, city2){
 
 
 
-# plot prices
+# plot prices -------------------------------------------------
 plot_prices <- function(select_prices, product){
   # Input:
   #   `prices`: city_prices data frame, filtered for 2 cities
@@ -103,4 +103,56 @@ plot_prices <- function(select_prices, product){
   return(plot)
 }
 
+
+# Make price category-wide price comparison
+lower_price_in_cat <- function(city1, city2, chosen_category){
+
+  # only print if both cities and category are selected:
+  if(city1 != "Select" & city2 != "Select" & chosen_category != "Select"){
+    #  first check if identical cities chosen
+    if(city1 == city2){
+      plot <- ggplot2::ggplot() +
+        ggplot2::annotate("text",
+                          x = 1, y = 1,
+                          size = 8,
+                          label = paste(
+                            "Please choose two non-identical cities to compare average",
+                            chosen_category, "prices.")) +
+        ggplot2::theme_void()
+    } else {
+      # compute mean price of chosen category for both cities
+      mean_prices <- city_prices %>%
+        dplyr::filter(city == city1 | city == city2) %>%
+        dplyr::filter(category == chosen_category) %>%
+        dplyr::group_by(city) %>%
+        dplyr::summarise(mean_price = mean(avg))
+
+      # find city in which price is lower
+      lowerprice <- mean_prices[mean_prices$mean_price == min(mean_prices$mean_price), 1]
+
+      # define what to print
+      label <- paste("Regarding", chosen_category, lowerprice$city, "is cheaper. \n
+                 Average price of all", chosen_category, "products in", mean_prices$city[1], "=" ,round(mean_prices$mean_price[1],2),"€. \n
+                 Average price of all", chosen_category, "products in", mean_prices$city[2], "=" ,round(mean_prices$mean_price[2],2), "€.")
+
+      plot <- ggplot2::ggplot() +
+        ggplot2::annotate("text",
+                          x = 1, y = 1,
+                          size = 8,
+                          label = label) +
+        ggplot2::theme_void()
+
+      # if not yet chosen: return empty plot
+    }
+  } else {
+    plot <- ggplot2::ggplot() +
+      ggplot2::annotate("text",
+                        x = 1, y = 1,
+                        size = 8,
+                        label = "") +
+      ggplot2::theme_void()
+  }
+
+  return(plot)
+}
 

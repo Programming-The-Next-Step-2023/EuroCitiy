@@ -99,6 +99,13 @@ server <- function(input, output){
 
     plot_prices(prices_for_cities, input$product)
   })
+
+  # plot text as plot to compare  prices for cities
+  output$cat_price_comparison <- shiny::renderPlot({
+    lower_price_in_cat(input$city1_prices,
+                       input$city2_prices,
+                       input$price_category)
+  })
 }
 
 

@@ -56,9 +56,9 @@ variable_names <- data.frame(
                "satisfaction", "sport", "transp"),
   display_name = c("LQBTQI+ friendliness", "Air quality", "Cleanness",
                    "Cultural Events & Activities", "Quality of Education",
-                   "Green spaces", "Health System", "Noise Level",
+                   "Green spaces", "the Health System", "Noise Level",
                    "Public spaces", "Quality of Life for ethnic minorities",
-                   "Safety", "Their City in General", "Sport facilities",
+                   "Safety", "their City in General", "Sport facilities",
                    "Public Transport")
 )
 
