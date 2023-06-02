@@ -56,14 +56,13 @@ filter_QoL_comparison <- function(city1, city2, criterion){
 
 # Function to plot comparison of filtered quality of life data
 plot_QoL_comparison <- function(comparison_df){
-  if(is.na(comparison_df$city[1]) & is.na(comparison_df$city[1])){
+  if(is.na(comparison_df$city[1]) & is.na(comparison_df$city[2])){
     plot <- ggplot2::ggplot() +
       ggplot2::annotate("text",
                         x = 1, y = 1,
                         size = 8,
                         label = "Please select two cities to compare.") +
       ggplot2::theme_void()
-
     # plot error if 2 identical cities are chosen
   } else if(nrow(comparison_df) == 1){
     plot <- ggplot2::ggplot() +

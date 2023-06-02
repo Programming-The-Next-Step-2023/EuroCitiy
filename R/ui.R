@@ -82,7 +82,7 @@ ui <- shiny::fluidPage(theme = shinythemes::shinytheme("lumen"),
                         # choose city1 based on chosen first country
                         shiny::uiOutput("conditional_city1"),
 
-                        # if country1 is in UK, inform user that no life satifsfaction data available
+                        # if country1 is in UK, inform user that no life satisfaction data available
                         shiny::conditionalPanel(
                           condition = "input.country1 == 'England' | input.country1 == 'Scotland' |
                           input.country1 == 'Northern Ireland' | input.country1 == 'Wales'",
@@ -144,7 +144,7 @@ ui <- shiny::fluidPage(theme = shinythemes::shinytheme("lumen"),
                         shiny::fluidRow(
                           # plot output: barchart cities quality of life
                           shiny::conditionalPanel(
-                            condition = "input.country1 != 'Select' | input.country2 != 'Select'",
+                            condition = "input.country1 != 'Select' & input.country2 != 'Select'",
                             shiny::plotOutput("barchart1")
                           )
                         )
