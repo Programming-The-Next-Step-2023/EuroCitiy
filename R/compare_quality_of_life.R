@@ -34,14 +34,16 @@
 #' @examples filter_QoL_comparison("Berlin", "Amsterdam", "LGBTQI")
 #'
 #' @export
-filter_QoL_comparison <- function(city1, city2, criterion){
-  # only execute when cities are selected to avoid errors
-  if(city1 != "Select" & city2 != "Select"){
-    comparison <- qualityOL %>%
-      dplyr::filter(variable == criterion &
-                      (city == city1 | city == city2)) %>%
-      dplyr::select(variable, city, percentage)
+filter_QoL_comparison <- function(country1, country2, city1, city2, criterion){
 
+  # only execute when both countries and cities are selected to avoid errors
+  if(country1 != "Select" & country2 != "Select"){
+    if(city1 != "Select" & city2 != "Select"){
+        comparison <- qualityOL %>%
+          dplyr::filter(variable == criterion &
+                          (city == city1 | city == city2)) %>%
+          dplyr::select(variable, city, percentage)
+    }
   } else {
     # return empty df
     comparison <- data.frame(

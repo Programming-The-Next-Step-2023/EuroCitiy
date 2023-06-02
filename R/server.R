@@ -57,8 +57,8 @@ server <- function(input, output){
   # bar chart for cities
   output$barchart1 <- shiny::renderPlot({
     # filter data by chosen cities and criterion
-    compared_df <- filter_QoL_comparison(input$city1,
-                                         input$city2,
+    compared_df <- filter_QoL_comparison(input$country1,input$country2,
+                                         input$city1,input$city2,
                                          input$criterion)
     plot_QoL_comparison(compared_df)
   })

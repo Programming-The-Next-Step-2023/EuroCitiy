@@ -5,7 +5,7 @@
 \title{Function to filter quality of life rating of 2 chosen cities on one
 chosen variable}
 \usage{
-filter_QoL_comparison(city1, city2, criterion)
+filter_QoL_comparison(country1, country2, city1, city2, criterion)
 }
 \arguments{
 \item{city1}{First city of choice.
