@@ -104,7 +104,7 @@ plot_prices <- function(select_prices, product){
 }
 
 
-# Make price category-wide price comparison
+# Make price category-wide price comparison ------------------------------------
 lower_price_in_cat <- function(city1, city2, chosen_category){
 
   # only print if both cities and category are selected:
