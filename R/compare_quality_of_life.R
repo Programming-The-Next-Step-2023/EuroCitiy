@@ -10,6 +10,18 @@
 #'    inhabitants of 2 European cities of your choice with a certain criterion of
 #'    quality of life.
 #'
+#' @param country1 Country of first city of choice
+#'
+#'    \emph{Valid country names are}:
+#'    Albania, Austria, Belgium, Bulgaria, Croatia, Cyprus, Czechia, Denmark,
+#'    England, Estonia, Finland, France, Germany, Greece, Hungary, Iceland,
+#'    Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Montenegro,
+#'    Netherlands, North Macedonia, Northern Ireland, Norway, Poland, Portugal,
+#'    Romania, Scotland, Serbia, Slovakia, Slovenia, Spain, Sweden, Switzerland,
+#'    Turkey, Wales
+#'
+#' @param country2 Country of second city of choice
+#'
 #' @param city1 First city of choice.
 #'
 #'    \emph{Valid city names are}:
@@ -29,9 +41,23 @@
 #' @param criterion Criterion to return; i.e, category that inhabitants were asked
 #'    to rate. The following criteria were assessed:
 #'
+#'    `LGBTQI` (LGBTQI+ friendliness),
+#'    `air` (Air quality),
+#'    `clean` (Cleanness),
+#'    `culture` (Diverse cultural offer),
+#'    `edu` (Education system),
+#'    `greenery` (Green spaces),
+#'    `health` (Health system),
+#'    `noise` (Noise level),
+#'    `racial` (Quality of life for ethnic minorities),
+#'    `safety` (Safety),
+#'    `sport` (Sport facilities),
+#'    `transp` (Public transport),
+#'    `satisfaction` (general satisfaction with city)
+#'
 #' @returns A data frame
 #'
-#' @examples filter_QoL_comparison("Berlin", "Amsterdam", "LGBTQI")
+#' @examples filter_QoL_comparison("Germany", "Netherlands", "Berlin", "Amsterdam", "LGBTQI")
 #'
 #' @export
 filter_QoL_comparison <- function(country1, country2, city1, city2, criterion){
@@ -56,7 +82,8 @@ filter_QoL_comparison <- function(country1, country2, city1, city2, criterion){
   return(comparison)
 }
 
-# Function to plot comparison of filtered quality of life data
+
+# Function to plot comparison of filtered quality of life data ---------------
 plot_QoL_comparison <- function(comparison_df){
   if(is.na(comparison_df$city[1]) & is.na(comparison_df$city[2])){
     plot <- ggplot2::ggplot() +

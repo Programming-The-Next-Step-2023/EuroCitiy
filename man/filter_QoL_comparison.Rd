@@ -8,6 +8,18 @@ chosen variable}
 filter_QoL_comparison(country1, country2, city1, city2, criterion)
 }
 \arguments{
+\item{country1}{Country of first city of choice
+
+   \emph{Valid country names are}:
+   Albania, Austria, Belgium, Bulgaria, Croatia, Cyprus, Czechia, Denmark,
+   England, Estonia, Finland, France, Germany, Greece, Hungary, Iceland,
+   Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Montenegro,
+   Netherlands, North Macedonia, Northern Ireland, Norway, Poland, Portugal,
+   Romania, Scotland, Serbia, Slovakia, Slovenia, Spain, Sweden, Switzerland,
+   Turkey, Wales}
+
+\item{country2}{Country of second city of choice}
+
 \item{city1}{First city of choice.
 
    \emph{Valid city names are}:
@@ -24,7 +36,21 @@ filter_QoL_comparison(country1, country2, city1, city2, criterion)
 \item{city2}{Second city}
 
 \item{criterion}{Criterion to return; i.e, category that inhabitants were asked
-to rate. The following criteria were assessed:}
+   to rate. The following criteria were assessed:
+
+   `LGBTQI` (LGBTQI+ friendliness),
+   `air` (Air quality),
+   `clean` (Cleanness),
+   `culture` (Diverse cultural offer),
+   `edu` (Education system),
+   `greenery` (Green spaces),
+   `health` (Health system),
+   `noise` (Noise level),
+   `racial` (Quality of life for ethnic minorities),
+   `safety` (Safety),
+   `sport` (Sport facilities),
+   `transp` (Public transport),
+   `satisfaction` (general satisfaction with city)}
 }
 \value{
 A data frame
@@ -35,6 +61,6 @@ This function returns a data frame containing the satisfaction of
    quality of life.
 }
 \examples{
-filter_QoL_comparison("Berlin", "Amsterdam", "LGBTQI")
+filter_QoL_comparison("Germany", "Netherlands", "Berlin", "Amsterdam", "LGBTQI")
 
 }
